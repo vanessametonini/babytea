@@ -1,0 +1,24 @@
+<li>
+  <figure>
+    <img
+      [src]="produto.fotoUrl"
+      [alt]="produto.titulo">
+    <figcaption>imagem sugestiva</figcaption>
+  </figure>
+  <h3><strong>{{produto.quantidade}}</strong> {{produto.titulo}}</h3>
+  <dl>
+    <dt>Valores:</dt>
+    <dd>de {{produto.valorMin}} a {{produto.valorMax}}</dd>
+    <dt>Lojas:</dt>
+    <dd>
+      <ul>
+        <li *ngFor="let loja of produto.lojas">
+          <a [href]="loja.url">{{loja.nome}}</a>
+        </li>
+      </ul>
+    </dd>
+  </dl>
+  <section class="reserva">
+    <strong>{{produto.status}}</strong>
+  </section>
+</li>
