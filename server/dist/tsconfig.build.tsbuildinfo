@@ -1942,11 +1942,11 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f"
       },
       "../src/produto/produto.entity.ts": {
-        "version": "0330fe477277a2084eba6d61a41d36f69b9202f608ca3babef75286db03d72c1",
-        "signature": "5397eaa62666c718d76ed428c3a4f0ad081710992ba66ca48ddbff91226c7c6d"
+        "version": "257436eb203a8fa43bf3dc1cae4a17bf738632dcae35805d6114a2ab1011ad3e",
+        "signature": "97d8c03c3b1991d809abd757cc2ee179b477f84030cbe6d750d65f47ba1e9a66"
       },
       "../src/produto/produto.controller.ts": {
-        "version": "38b198b31eeceefc4bedacafbab794a2969e7375b9e573b9df47f0db2bf09076",
+        "version": "fda8f5b37dec5d319cfa3e0a6120028872198fa91a032fcbfd7699a2c2a05e57",
         "signature": "14e541db5d7237eedc71aff0bb8237744a2f78196a2a54f7e4f35b932dc983ce"
       },
       "../src/produto/produto.module.ts": {

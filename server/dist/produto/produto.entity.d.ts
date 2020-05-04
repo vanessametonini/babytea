@@ -3,6 +3,12 @@ export declare enum productStatus {
     livre = "livre",
     ilimitado = "ilimitado"
 }
+export declare enum categoria {
+    bebe = "beb\u00EA",
+    papai = "papai",
+    mamae = "mam\u00E3e",
+    familia = "fam\u00EDlia"
+}
 declare class Loja {
     nome: string;
     url: string;
@@ -16,6 +22,8 @@ export declare class Produto {
     valorMax: number;
     lojas: Loja[];
     status: productStatus;
+    categoria: categoria;
+    descricao: string;
     cadastradoEm: Date;
 }
 export {};

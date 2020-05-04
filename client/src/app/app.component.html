@@ -1,15 +1,7 @@
-<header>
+<header class="jumbotron">
   <h1>Chá de bebe da Yasmin</h1>
   <h2>& da Vanessa e do Aarão :)</h2>
 </header>
 <main class="container">
-  <h1>Lista de presentes</h1>
-
-  <h2>Bebê</h2>
-
-  <section class="produtos">
-    <ol *ngFor="let produto of listaProdutos">
-      <bt-produto [produto]="produto"></bt-produto>
-    </ol>
-  </section>
+  <router-outlet></router-outlet>
 </main>

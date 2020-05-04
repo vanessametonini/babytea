@@ -6,6 +6,13 @@ export enum productStatus {
   ilimitado = 'ilimitado',
 }
 
+export enum categoria {
+  bebe = 'bebê',
+  papai = 'papai',
+  mamae = 'mamãe',
+  familia = 'família'
+}
+
 class Loja {
   nome: string;
   url: string;
@@ -36,6 +43,12 @@ export class Produto {
 
   @Column({ nullable: false, enum: productStatus })
   status: productStatus;
+  
+  @Column({ nullable: false, enum: categoria })
+  categoria: categoria;
+
+  @Column({ nullable: true })
+  descricao: string;
 
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;

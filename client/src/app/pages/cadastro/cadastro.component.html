@@ -1,0 +1,135 @@
+<form [formGroup]="formCadastro" (ngSubmit)="enviarCadastro()" class="needs-validation">
+  
+  <div class="row">
+      <fieldset class="col-sm">
+
+        <div class="form-group">
+          <label for="titulo">Título:</label>
+          <input formControlName="titulo" id="titulo" type="text" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['titulo'].invalid && (formCadastro.controls['titulo'].dirty || formCadastro.controls['titulo'].touched)}" required>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['titulo'].getError('required')">
+            Informar um titulo é obrigatório!
+          </span>
+        </div>
+      
+        <div class="form-group">
+          <label for="foto">Foto:</label>
+          <input formControlName="fotoUrl" id="foto" type="text" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['fotoUrl'].invalid && (formCadastro.controls['fotoUrl'].dirty || formCadastro.controls['fotoUrl'].touched)}" required>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['fotoUrl'].getError('required')">
+            Informar uma foto é obrigatório!
+          </span>
+        </div>
+      
+        <div class="form-group">
+          <label for="quantidade">Quantidade:</label>
+          <input formControlName="quantidade" type="number" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['quantidade'].invalid && (formCadastro.controls['quantidade'].dirty || formCadastro.controls['quantidade'].touched)}" required>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['quantidade'].getError('required')">
+            Informar uma quantidade é obrigatório!
+          </span>
+        </div>
+      
+      </fieldset>
+      
+      <fieldset class="col-sm">
+        <div class="form-group">
+          <label for="valorMin">Menor valor:</label>
+          <input formControlName="valorMin" id="valorMin" type="number" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['valorMin'].invalid && (formCadastro.controls['valorMin'].dirty || formCadastro.controls['valorMin'].touched)}" required>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['valorMin'].getError('required')">
+            Informar um valor mínimo é obrigatório!
+          </span>
+        </div>
+      
+        <div class="form-group">
+          <label for="valorMax">Maior valor:</label>
+          <input formControlName="valorMax" id="valorMax" type="number" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['valorMax'].invalid && (formCadastro.controls['valorMax'].dirty || formCadastro.controls['valorMax'].touched)}" required>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['valorMax'].getError('required')">
+            Informar um valor máximo é obrigatório!
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select formControlName="categoria" name="categoria" id="categoria" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['categoria'].invalid && (formCadastro.controls['categoria'].dirty || formCadastro.controls['categoria'].touched)}" required>
+            <option selected disabled>Escolha</option>
+            <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
+          </select>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['categoria'].getError('required')">
+            Informar uma categoria é obrigatório!
+          </span>
+        </div>
+      </fieldset>
+      
+      <fieldset class="col-sm">
+        
+      
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select formControlName="status" name="status" id="status" class="form-control" [ngClass]="{'is-invalid': formCadastro.controls['status'].invalid && (formCadastro.controls['status'].dirty || formCadastro.controls['status'].touched)}" required>
+            <option selected disabled>Escolha</option>
+            <option *ngFor="let st of statusList" [value]="st">{{st}}</option>
+          </select>
+
+          <span class="invalid-feedback" *ngIf="formCadastro.controls['status'].getError('required')">
+            Informar um status é obrigatório!
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição:</label>
+          <textarea formControlName="descricao" id="descricao" class="form-control"></textarea>
+        </div>
+      </fieldset>
+
+  </div>
+
+  <hr>
+
+  <fieldset class="row">
+    <div class="col">
+      <legend>Lojas</legend>
+      <button class="btn btn-success" (click)="addLoja($event)">Adicionar Loja</button>
+      
+      <div class="row" formArrayName="lojas">
+          
+        <fieldset *ngFor="let loja of lojas.controls; index as i" [formGroupName]="i" class="col-sm">
+
+          <button (click)="removeLoja($event, i)" type="button" class="close" aria-label="Remover" title="Remover">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        
+          <div class="form-group">
+            <label for="nomeLoja{{i}}">Nome loja {{i}}</label>
+            <input formControlName="nome" id="nomeLoja{{i}}" type="text" class="form-control"
+            [ngClass]="{'is-invalid': lojas.controls[i].get('nome').invalid && (lojas.controls[i].get('nome').dirty || lojas.controls[i].get('nome').touched)}" required>
+
+            <span class="invalid-feedback" *ngIf="lojas.controls[i].get('nome').getError('required')">
+              Informar uma loja é obrigatório!
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="urlLoja{{i}}">URL loja {{i}}</label>
+            <input formControlName="url" id="urlLoja{{i}}" type="text" class="form-control" [ngClass]="{'is-invalid': lojas.controls[i].get('url').invalid && (lojas.controls[i].get('url').dirty || lojas.controls[i].get('url').touched)}" required>
+
+            <span class="invalid-feedback" *ngIf="lojas.controls[i].get('url').getError('required')">
+              Informar uma url é obrigatório!
+            </span>
+          </div>
+        </fieldset>
+
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary btn-lg float-right mb-4">enviar</button>
+    </div>
+  </div>
+
+</form>

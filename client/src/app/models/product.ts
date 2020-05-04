@@ -1,20 +1,17 @@
+import { Loja } from './loja';
+import { productStatus } from './product-status.enum';
+import { categoria } from './categoria.enum';
+
 export class Product {
-         fotoUrl = '';
-         titulo = '';
-         quantidade = 1;
-         valorMin = 0;
-         valorMax = 0;
-         lojas: Loja[] = [];
-         status: productStatus;
-       }
-
-class Loja {
-  nome = "";
-  url = ""
-}
-
-export enum productStatus {
-  reservado = 'reservado',
-  livre = 'livre',
-  ilimitado = 'ilimitado'
+  id: string;
+  cadastradoEm: Date;
+  fotoUrl = "";
+  titulo = "";
+  descricao = "";
+  quantidade = 1;
+  valorMin = 0;
+  valorMax = 0;
+  lojas: Loja[] = [];
+  status: productStatus;
+  categoria: categoria;
 }

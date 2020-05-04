@@ -16,6 +16,13 @@ var productStatus;
     productStatus["livre"] = "livre";
     productStatus["ilimitado"] = "ilimitado";
 })(productStatus = exports.productStatus || (exports.productStatus = {}));
+var categoria;
+(function (categoria) {
+    categoria["bebe"] = "beb\u00EA";
+    categoria["papai"] = "papai";
+    categoria["mamae"] = "mam\u00E3e";
+    categoria["familia"] = "fam\u00EDlia";
+})(categoria = exports.categoria || (exports.categoria = {}));
 class Loja {
 }
 let Produto = class Produto {
@@ -52,6 +59,14 @@ __decorate([
     typeorm_1.Column({ nullable: false, enum: productStatus }),
     __metadata("design:type", String)
 ], Produto.prototype, "status", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: false, enum: categoria }),
+    __metadata("design:type", String)
+], Produto.prototype, "categoria", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Produto.prototype, "descricao", void 0);
 __decorate([
     typeorm_1.CreateDateColumn({ nullable: false }),
     __metadata("design:type", Date)

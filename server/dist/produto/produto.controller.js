@@ -36,7 +36,6 @@ let ProdutoController = class ProdutoController {
     }
     create(produtoInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(produtoInput);
             return yield this.produtoRepository.save(produtoInput);
         });
     }
