@@ -1,0 +1,30 @@
+.produto {
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+  border-radius: 10px;
+  padding: 1em 2em;
+}
+
+figure {
+  position: relative;
+  text-align: center;
+
+  figcaption {
+    background-color: rgba(0,0,0,.3);
+    border-radius: 0 0 4px 4px;
+    bottom: 0;
+    color: white;
+    font-size: 0.8em;
+    left: 0;
+    padding: 2px 0;
+    position: absolute;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.9);
+    width: 100%;
+  }
+}
+
+img {
+  border-radius: 4px;
+  height: 150px;
+  object-fit: contain;
+  width: 150px;
+}

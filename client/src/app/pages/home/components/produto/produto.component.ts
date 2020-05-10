@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
+import { productStatus } from "src/app/models/product-status.enum";
 
 @Component({
   selector: 'bt-produto',
@@ -9,6 +10,8 @@ import { Product } from 'src/app/models/product';
 export class ProdutoComponent implements OnInit {
 
   @Input() produto: Product;
+
+  statusProduto = productStatus;
 
   constructor() { }
 

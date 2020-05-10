@@ -1,14 +1,17 @@
-<li>
+<div class="produto">
   <figure>
     <img
       [src]="produto.fotoUrl"
-      [alt]="produto.titulo">
-    <figcaption>imagem sugestiva</figcaption>
+      [alt]="produto.titulo"
+      width="150px"
+      height="150px"
+      >
+    <figcaption>imagem ilustrativa</figcaption>
   </figure>
   <h3><strong>{{produto.quantidade}}</strong> {{produto.titulo}}</h3>
   <dl>
     <dt>Valores:</dt>
-    <dd>de {{produto.valorMin}} a {{produto.valorMax}}</dd>
+    <dd>de {{produto.valorMin | currency:'BRL'}} a {{produto.valorMax | currency:'BRL'}}</dd>
     <dt>Lojas:</dt>
     <dd>
       <ul>
@@ -17,8 +20,21 @@
         </li>
       </ul>
     </dd>
+    <dt>Comentário:</dt>
+    <dd>{{produto.descricao}}</dd>
   </dl>
   <section class="reserva">
-    <strong>{{produto.status}}</strong>
+    <button *ngIf="produto.status == statusProduto.livre" class="btn btn-success btn-lg">
+      Presentear!
+    </button>
+
+    <button *ngIf="produto.status == statusProduto.reservado" class="btn btn-outline-danger btn-lg">
+      Reservado para: 
+    </button>
+
+    <button *ngIf="produto.status == statusProduto.ilimitado" class="btn btn-primary btn-lg">
+      Presentear!
+    </button>
+
   </section>
-</li>
+</div>

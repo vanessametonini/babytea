@@ -5,8 +5,7 @@ import { ProdutoService } from 'src/app/services/produto.service';
 @Component({
   selector: 'bt-product-list',
   templateUrl: './product-list.component.html',
-  styles: [
-  ]
+  styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
 

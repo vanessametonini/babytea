@@ -1,9 +1,18 @@
 <h1>Lista de presentes</h1>
 
-<h2>Bebê</h2>
+<div class="tabs">
+  <div class="heading">
+    <h2 class="active">Bebê</h2>
+    <h2>Mamãe</h2>
+    <h2>Papai</h2>
+    <h2>Família</h2>
+  </div>
+  <section class="produtos">
+    <ol>
+      <li *ngFor="let produto of listaProdutos">
+        <bt-produto [produto]="produto"></bt-produto>
+      </li>
+    </ol>
+  </section>
+</div>
 
-<section class="produtos">
-  <ol *ngFor="let produto of listaProdutos">
-    <bt-produto [produto]="produto"></bt-produto>
-  </ol>
-</section>

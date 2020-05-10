@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt-PT';
+
+registerLocaleData(pt);
+
 @NgModule({
   declarations: [
     AppComponent

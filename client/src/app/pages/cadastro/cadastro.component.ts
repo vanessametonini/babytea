@@ -4,12 +4,11 @@ import { productStatus } from 'src/app/models/product-status.enum';
 import { Validators, FormBuilder, FormControl, FormArray, FormGroup } from '@angular/forms';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bt-cadastro',
-  templateUrl: './cadastro.component.html',
-  styles: [
-  ]
+  templateUrl: './cadastro.component.html'
 })
 export class CadastroComponent implements OnInit {
 
@@ -28,7 +27,7 @@ export class CadastroComponent implements OnInit {
     lojas: new FormArray([])
   })
 
-  constructor(private servico: ProdutoService, private fb: FormBuilder) { }
+  constructor(private servico: ProdutoService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.categorias = Object.values(categoria)
@@ -71,6 +70,8 @@ export class CadastroComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
+          this.router.navigate(['']);
+          
         }
         , (erro: HttpErrorResponse) => {
           console.log(erro.error.body[0].message);

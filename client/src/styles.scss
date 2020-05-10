@@ -1,10 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-img {
-    height: 150px;
-    object-fit: contain;
-    width: 150px;
+
+$base-lila: #CFB4ED;
+
+* {
+  color: var(--gray);
 }
 
-li {
-  list-style-type: none;
+h1 {
+  font-family: 'Merienda One', cursive;
+}
+
+
+a {
+  color: var(--purple);
+}
+
+.jumbotron {
+  background-color: $base-lila;
+  color: white;
+  font-family: 'Merienda One', cursive;
+
+  h1,h2 {
+    color: white;
+  }
 }

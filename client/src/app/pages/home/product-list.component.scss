@@ -1,0 +1,77 @@
+h2 {
+  text-align: center;
+  transition: background-color 500ms;
+  
+  cursor: pointer;
+  font-family: 'Cabin Sketch', cursive;
+  padding: 1rem 1.2rem;
+  position: relative;
+
+  &:after {
+    background-color: var(--purple);
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    width: 0%;
+    transition: width 500ms ease-in;
+  }
+
+  &:active,
+  &.active {
+    color: var(--purple);
+     &:after {
+      width: 100%;
+    }
+  }
+  
+  &:hover {
+    background-color: rgba(207, 180, 237, 0.4);
+    color: var(--purple);
+    &:after {
+      width: 100%;
+    }
+  }
+
+}
+
+.tabs {
+  .heading {
+    display: grid;
+    grid-template-columns: repeat(4,140px);
+    max-width: 100vh;
+    margin-bottom: 2em;
+    overflow: auto;
+  }
+}
+
+.produtos {
+
+  ol {
+    display: grid;
+    gap: 2em;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  @media (min-width: 540px) {
+    ol {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      
+    }
+  }
+
+  @media (min-width: 800px) {
+    ol {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+    }
+  }
+}
