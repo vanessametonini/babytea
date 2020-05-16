@@ -1,0 +1,137 @@
+<div class="row">
+  <form class="needs-validation col-sm-5" [formGroup]="formLogin" (ngSubmit)="entrar()">
+    <h2>Entrar</h2>
+
+    <div class="form-group">
+      <input formControlName="email" type="email" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formLogin, 'email')}" placeholder="E-mail:">
+       <span class="invalid-feedback" *ngIf="formLogin.get('email').getError('required')">
+        Entre com o email usado no seu cadastro!
+      </span>
+      <span class="invalid-feedback" *ngIf="formLogin.get('email').getError('email')">
+        Informe um email no formato certo! Com @ etc
+      </span>
+    </div>
+
+    <div class="form-group">
+      <input formControlName="senha" type="password" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formLogin, 'senha')}" placeholder="Senha:">
+       <span class="invalid-feedback" *ngIf="formLogin.get('senha').getError('required')">
+        Informe sua senha
+      </span>
+      <span class="invalid-feedback" *ngIf="formLogin.get('senha').getError('minlength')">
+        A senha tem pelo menos {{formLogin.get('senha').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+    <button class="btn btn-primary float-right">Entrar</button>
+  </form>
+
+  <div class="ou col-sm-1">
+    ou
+  </div>
+
+  <form class="needs-validation col-sm-6" [formGroup]="formCadastro"  (ngSubmit)="cadastrar()">
+    <h2>Cadastrar</h2>
+
+    <div class="form-group">
+      <input formControlName="nome" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'nome')}" placeholder="Nome e sobrenome:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('required')">
+        Preencha seu nome!
+      </span>
+       <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('minlength')">
+        O nome tem que ter pelo menos {{formCadastro.get('nome').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+
+    <div class="form-group">
+      <input formControlName="whatsapp" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'whatsapp')}" placeholder="WhatsApp:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('whatsapp').getError('invalid')">
+        O número do WhatsApp deve ser um número de telefone com ddd
+      </span>
+    </div>
+
+    <div class="form-group">
+      <input formControlName="email" type="email"class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'email')}" placeholder="E-mail:">
+
+      <span class="invalid-feedback" *ngIf="formCadastro.get('email').getError('required')">
+        Preencha um email!
+      </span>
+      <span class="invalid-feedback" *ngIf="formCadastro.get('email').getError('email')">
+        Informe um email no formato certo! Com @ etc
+      </span>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <input formControlName="senha" [type]="showPassword ? 'text' : 'password'" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'senha')}" placeholder="Senha:">
+
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="button" class="input-group-text" aria-label="Ver senha" (click)="verSenha()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 132">
+              <g fill="#666666" class="visible" *ngIf="!showPassword">
+                <path d="M83.25 29.25c-9.649 0-17.5 7.851-17.5 17.5s7.851 17.5 17.5 17.5 17.5-7.851 17.5-17.5-7.851-17.5-17.5-17.5z"/>
+                <path d="M83.25.75c-45.84 0-83 46-83 46s37.16 46 83 46 83-46 83-46-37.16-46-83-46zm0 80.5c-19.054 0-34.5-15.445-34.5-34.5 0-19.054 15.446-34.5 34.5-34.5s34.5 15.446 34.5 34.5c0 19.055-15.446 34.5-34.5 34.5z"/>
+              </g>
+              <g fill="#666666" class="not-invisible" *ngIf="showPassword">
+                <path d="M132.658-.18l-24.321 24.321c-7.915-2.71-16.342-4.392-25.087-4.392-45.84 0-83 46-83 46s14.1 17.44 35.635 30.844L12.32 120.158l12.021 12.021L144.68 11.841 132.658-.18zM52.033 80.445A34.335 34.335 0 0148.75 65.75c0-19.054 15.446-34.5 34.5-34.5a34.318 34.318 0 0114.695 3.284L52.033 80.445zM134.865 37.656l-18.482 18.482a34.493 34.493 0 011.367 9.612c0 19.055-15.446 34.5-34.5 34.5a34.48 34.48 0 01-9.611-1.367l-10.124 10.124c6.326 1.725 12.934 2.743 19.735 2.743 45.84 0 83-46 83-46s-12.263-15.175-31.385-28.094z"/>
+              </g>
+            </svg>
+          </button>
+        </div>
+
+        <span class="invalid-feedback" *ngIf="formCadastro.get('senha').getError('required')">
+          Preencha uma senha!
+        </span>
+        <span class="invalid-feedback" *ngIf="formCadastro.get('senha').getError('minlength')">
+          A senha tem que ter pelo menos {{formCadastro.get('senha').getError('minlength').requiredLength}} caracteres
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <input formControlName="confirmar" [type]="showPassword ? 'text' : 'password'" class="form-control" [ngClass]="{'is-invalid': (formCadastro.get('confirmar').invalid || formCadastro.hasError('notSame')) && (formCadastro.get('confirmar').dirty || formCadastro.get('confirmar').touched)}" placeholder="Confirmar senha:">
+
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="button" class="input-group-text" aria-label="Ver senha" (click)="verSenha()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 132">
+              <g fill="#666666" class="visible" *ngIf="!showPassword">
+                <path d="M83.25 29.25c-9.649 0-17.5 7.851-17.5 17.5s7.851 17.5 17.5 17.5 17.5-7.851 17.5-17.5-7.851-17.5-17.5-17.5z"/>
+                <path d="M83.25.75c-45.84 0-83 46-83 46s37.16 46 83 46 83-46 83-46-37.16-46-83-46zm0 80.5c-19.054 0-34.5-15.445-34.5-34.5 0-19.054 15.446-34.5 34.5-34.5s34.5 15.446 34.5 34.5c0 19.055-15.446 34.5-34.5 34.5z"/>
+              </g>
+              <g fill="#666666" class="not-invisible" *ngIf="showPassword">
+                <path d="M132.658-.18l-24.321 24.321c-7.915-2.71-16.342-4.392-25.087-4.392-45.84 0-83 46-83 46s14.1 17.44 35.635 30.844L12.32 120.158l12.021 12.021L144.68 11.841 132.658-.18zM52.033 80.445A34.335 34.335 0 0148.75 65.75c0-19.054 15.446-34.5 34.5-34.5a34.318 34.318 0 0114.695 3.284L52.033 80.445zM134.865 37.656l-18.482 18.482a34.493 34.493 0 011.367 9.612c0 19.055-15.446 34.5-34.5 34.5a34.48 34.48 0 01-9.611-1.367l-10.124 10.124c6.326 1.725 12.934 2.743 19.735 2.743 45.84 0 83-46 83-46s-12.263-15.175-31.385-28.094z"/>
+              </g>
+            </svg>
+          </button>
+        </div>
+        <span class="invalid-feedback" *ngIf="formCadastro.get('senha').getError('required')">
+          Preencha uma senha!
+        </span>
+        <span class="invalid-feedback" *ngIf="formCadastro.hasError('notSame')">
+          As senhas devem coincidir
+        </span>
+      </div>
+    </div>
+    
+    <div class="form-group termos">
+      <div class="form-group">
+        <div class="small">
+          <h5>Termos de uso e política de dados</h5>
+          <p>
+            Este sistema foi carinhosamente desenvolvido por Vanessa Martinez Tonini e feito exclusivamente para familiares e amigas/os, não compartilhe abertamente este site. Seus dados serão utilizados para uso exclusivo do evento <strong>Chá da bebê Yasmin</strong>. Após o encerramento do evento, todos os dados serão descartados.
+          </p>
+        </div>
+        <div class="form-check">
+          <input formControlName="termos" class="form-check-input" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'termos')}" type="checkbox" [value]="formCadastro.get('termos').value" id="termos" required>
+          <label class="form-check-label" for="termos">
+            Aceitar termos
+          </label>
+          <div class="invalid-feedback" *ngIf="formCadastro.get('termos').getError('required')">
+            Você precisa aceitar para se cadastrar.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary float-right">Cadastrar</button>
+  </form>
+</div>

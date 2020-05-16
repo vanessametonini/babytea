@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bt-welcome',
   templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
 
@@ -16,20 +18,33 @@ export class WelcomeComponent implements OnInit {
     nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    confirmar: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmar: new FormControl('', Validators.required),
     whatsapp: new FormControl(''),
     termos: new FormControl(false, [Validators.required]),
+  }, {
+    validators: this.checkPassword
   })
 
-  constructor() { }
+  showPassword: boolean = false;
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  // passwordValidation(control: AbstractControl){
-  //   console.log(control.value === control.parent.get('senha').value);
-  //   return control.value === control.parent.get('senha').value
-  // }
+  verSenha() {
+    this.showPassword = !this.showPassword;
+  }
+
+  checkPassword(form: FormGroup){
+
+    const pass = form.get('senha').value,
+          confirmPass = form.get('confirmar').value;
+
+    return pass === confirmPass ? null : { notSame: true }     
+
+  }
 
   checkFormValidation(form){
     if (form.invalid) {
@@ -42,8 +57,8 @@ export class WelcomeComponent implements OnInit {
 
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
-
       localStorage.setItem('bbt-token', 'blablabla')
+      this.router.navigate(['']);
     }
   }
 
@@ -53,8 +68,11 @@ export class WelcomeComponent implements OnInit {
 
     if(this.formCadastro.valid){
       console.log(this.formCadastro.value);
-      
       localStorage.setItem('bbt-cadastro', JSON.stringify(this.formCadastro.value))
+
+      //e login
+      localStorage.setItem('bbt-token', 'blablabla')
+      this.router.navigate(['']);
     }
 
   }
