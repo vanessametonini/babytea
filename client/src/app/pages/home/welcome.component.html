@@ -1,0 +1,93 @@
+<div class="row">
+  <form class="needs-validation col-sm-5" [formGroup]="formLogin" (ngSubmit)="entrar()">
+    <h2>Entrar</h2>
+
+    <div class="form-group">
+      <input formControlName="email" type="email" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formLogin, 'email')}" placeholder="E-mail:">
+       <span class="invalid-feedback" *ngIf="formLogin.get('email').getError('required')">
+        Entre com o email usado no seu cadastro!
+      </span>
+      <span class="invalid-feedback" *ngIf="formLogin.get('email').getError('email')">
+        Informe um email no formato certo! Com @ etc
+      </span>
+    </div>
+    <div class="form-group">
+      <input formControlName="senha" type="password" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formLogin, 'senha')}" placeholder="Senha:">
+       <span class="invalid-feedback" *ngIf="formLogin.get('senha').getError('required')">
+        Informe sua senha
+      </span>
+      <span class="invalid-feedback" *ngIf="formLogin.get('senha').getError('minlength')">
+        A senha tem pelo menos {{formLogin.get('senha').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+    <button class="btn btn-primary float-right">Entrar</button>
+  </form>
+
+  <div class="ou col-sm-1">
+    ou
+  </div>
+
+  <form class="needs-validation col-sm-6" [formGroup]="formCadastro"  (ngSubmit)="cadastrar()">
+    <h2>Cadastrar</h2>
+    <div class="form-group">
+      <input formControlName="nome" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'nome')}" placeholder="Nome e sobrenome:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('required')">
+        Preencha seu nome!
+      </span>
+       <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('minlength')">
+        O nome tem que ter pelo menos {{formCadastro.get('nome').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+    <div class="form-group">
+      <input formControlName="whatsapp" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'whatsapp')}" placeholder="WhatsApp:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('whatsapp').getError('invalid')">
+        O número do WhatsApp deve ser um número de telefone com ddd
+      </span>
+    </div>
+    <div class="form-group">
+      <input formControlName="email" type="email"class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'email')}" placeholder="E-mail:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('email').getError('required')">
+        Preencha um email!
+      </span>
+      <span class="invalid-feedback" *ngIf="formCadastro.get('email').getError('email')">
+        Informe um email no formato certo! Com @ etc
+      </span>
+    </div>
+    <div class="form-group">
+      <input formControlName="senha" type="password" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'senha')}" placeholder="Senha:">
+      <span class="invalid-feedback" *ngIf="formCadastro.get('senha').getError('required')">
+        Preencha uma senha!
+      </span>
+      <span class="invalid-feedback" *ngIf="formCadastro.get('senha').getError('minlength')">
+        A senha tem que ter pelo menos {{formCadastro.get('senha').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+    <div class="form-group">
+      <input formControlName="confirmar" type="password" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'confirmar')}" placeholder="Confirmar senha:">
+      <span class="invalid-feedback"  *ngIf="formCadastro.get('confirmar').getError('required')">
+        As senhas devem coincidir
+      </span>
+      <span class="invalid-feedback" *ngIf="formCadastro.get('confirmar').getError('minlength')">
+        A senha tem que ter pelo menos {{formCadastro.get('confirmar').getError('minlength').requiredLength}} caracteres
+      </span>
+    </div>
+    <div class="form-group termos">
+      <div class="form-group">
+        <h4>Termos de uso e política de dados</h4>
+        <p>
+          Este sistema foi carinhosamente desenvolvido pela Vanessa Martinez Tonini. Seus dados serão utilizados para uso exclusivo do evento <strong>Chá da bebê Yasmin</strong>. Após o encerramento do evento, todos os dados serão descartados.
+        </p>
+        <div class="form-check">
+          <input formControlName="termos" class="form-check-input" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'termos')}" type="checkbox" [value]="formCadastro.get('termos').value" id="termos" required>
+          <label class="form-check-label" for="termos">
+            Aceitar termos de uso
+          </label>
+          <div class="invalid-feedback" *ngIf="formCadastro.get('termos').getError('required')">
+            Você precisa aceitar para se cadastrar.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary float-right">Cadastrar</button>
+  </form>
+</div>
