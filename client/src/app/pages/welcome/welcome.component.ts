@@ -31,6 +31,9 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('bbt-token')) {
+      this.router.navigate([''])
+    }
   }
 
   verSenha() {

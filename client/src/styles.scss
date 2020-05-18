@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 $base-lila: #CFB4ED;
 
 * {
@@ -10,7 +9,6 @@ h1 {
   font-family: 'Merienda One', cursive;
 }
 
-
 a {
   color: var(--purple);
 }
@@ -18,11 +16,20 @@ a {
 .jumbotron {
   background-color: $base-lila;
   color: white;
-  font-family: 'Merienda One', cursive;
+  position: relative;
+  overflow: hidden;
 
-  h1,h2 {
-    color: white;
+  @media (max-width: 575px) {
+    &.temMenu {
+      padding-bottom: 3.5em;
+    }
   }
+
+  h1, h2 {
+    color: white;
+    font-family: 'Merienda One', cursive;
+  }
+
 }
 
 h2 {

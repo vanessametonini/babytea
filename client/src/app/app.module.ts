@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt-PT';
+import { MyListComponent } from './components/my-list.component';
 
 registerLocaleData(pt);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MyListComponent
   ],
   imports: [
     BrowserModule,

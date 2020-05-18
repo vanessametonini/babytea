@@ -5,4 +5,15 @@ import { Component } from '@angular/core';
   templateUrl: `./app.component.html`,
   styles: [],
 })
-export class AppComponent {}
+export class AppComponent {
+
+  isLoggedIn() {
+    if (localStorage.getItem('bbt-token')) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
+}

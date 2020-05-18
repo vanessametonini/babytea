@@ -1,0 +1,128 @@
+.my-list {
+  bottom: -5px;
+  position: absolute;
+  right: 0;
+
+  @media (min-width: 575px) {
+    right: 1rem;
+  }
+
+  h3 {
+    color: var(--purple);
+    font-family: 'Merienda One', cursive;
+    margin-bottom: 1em;
+  }
+
+  button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+
+    svg {
+      float: right;
+      margin-left: 10px;
+      width: 26px;
+    }
+  }
+
+  .abrir {
+    font-family: 'Merienda One', cursive;
+    border-radius: 10px 10px 0 0;
+
+    &:active,
+    &:hover {
+      color: var(--purple);
+      box-shadow: 0 0 10px var(--purple);
+    }
+  }
+
+  .fechar {
+    border-radius: 10px;
+    display: block;
+    margin-bottom: .5em;
+    margin-left: auto;
+
+    &:active,
+    &:hover {
+      background-color:#CFB4ED;
+    }
+
+  }
+
+  .remover {
+    border-radius: 50%;
+    color: red;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    float: right;
+
+    &:hover,
+    &:active {
+      background-color: pink;
+    }
+
+    svg {
+      left: -6px;
+      position: relative;
+      width: 16px;
+    }
+
+    svg g {
+      stroke: #F00;
+    }
+  }
+
+  .lista {
+    padding: 1em;
+    display: none;
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: white;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    @media (min-width: 800px) {
+      box-shadow: 0px 0 20px rgba(0,0,0,.3), -10px 0px 20px #CFB4ED;
+      left: unset;
+      max-width: 450px;
+      right: 0;
+      width: auto;
+    }
+
+  }
+
+  ol {
+    border: 1px dashed #CFB4ED;
+    border-radius: 10px;
+    max-width: 96%;
+    list-style-position: inside;
+    padding: 10px 10px 10px 15px;
+  }
+
+  li {
+    margin-bottom: 1em;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  li a {
+    border-radius: 10px;
+    display: inline-block;
+    max-width: calc(100% - 30px);
+    padding: 2px 8px;
+
+    &:hover {
+      background-color: powderblue;
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+}

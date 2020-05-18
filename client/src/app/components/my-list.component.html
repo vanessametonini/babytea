@@ -1,0 +1,49 @@
+<section class="my-list">
+
+  <button class="abrir" type="button" (click)="verLista()">
+    Minha lista de presentes 
+    <span *ngIf="products.length > 0">
+      ({{products.length}} itens)
+    </span>
+  </button>
+
+  <div class="lista" [ngStyle]="{'display': isProductsVisible}">
+
+    <button class="fechar" type="button" (click)="verLista()">
+      Fechar
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+        <g fill="none" stroke="#6c757d" stroke-width="2">
+          <path d="M2 14L14 2M2 2l12 12"/>
+        </g>
+      </svg>
+    </button>
+
+    <h3>Minha lista de presentes</h3>
+
+    <div *ngIf="products.length == 0">
+      <p>
+        Você ainda não reservou um presente! 
+      </p>
+      <p>
+        Confira a lista de presentes, fechando esta janela, e depois rolando a tela para baixo. Clique em presentear caso queira reservar determinado item!
+      </p>
+    </div>
+
+    <div *ngIf="products.length > 0">
+      <p>Olá Ciclana! Veja os itens da sua lista:</p>
+      <ol *ngFor="let produto of products">
+        <li>
+          <a [routerLink]="['produto', produto.id]">{{produto.titulo}}</a> 
+          <button class="remover" type="button" title="remover">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <g fill="none" stroke="#6c757d" stroke-width="2">
+                <path d="M2 14L14 2M2 2l12 12"/>
+              </g>
+            </svg>
+          </button>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+</section>
