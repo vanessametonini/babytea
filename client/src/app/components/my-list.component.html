@@ -2,7 +2,10 @@
 
   <button class="abrir" type="button" (click)="verLista()">
     Minha lista de presentes 
-    <span *ngIf="products.length > 0">
+    <span *ngIf="products.length == 1">
+      ({{products.length}} item)
+    </span>
+    <span *ngIf="products.length > 1">
       ({{products.length}} itens)
     </span>
   </button>
@@ -25,16 +28,19 @@
         Você ainda não reservou um presente! 
       </p>
       <p>
-        Confira a lista de presentes, fechando esta janela, e depois rolando a tela para baixo. Clique em presentear caso queira reservar determinado item!
+        Confira a lista de presentes, fechando esta janela, e depois rolando a tela para baixo.
+      </p>
+      <p>
+        Clique em <strong>presentear</strong> caso queira reservar determinado item!
       </p>
     </div>
 
     <div *ngIf="products.length > 0">
-      <p>Olá Ciclana! Veja os itens da sua lista:</p>
-      <ol *ngFor="let produto of products">
-        <li>
+      <p>Olá Ciclana! Veja os itens que você já reservou para presentear:</p>
+      <ol>
+        <li *ngFor="let produto of products">
           <a [routerLink]="['produto', produto.id]">{{produto.titulo}}</a> 
-          <button class="remover" type="button" title="remover">
+          <button class="remover" type="button" title="remover" (click)="removerLista(produto)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <g fill="none" stroke="#6c757d" stroke-width="2">
                 <path d="M2 14L14 2M2 2l12 12"/>

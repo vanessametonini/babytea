@@ -24,15 +24,15 @@
     <dd>{{produto.descricao}}</dd>
   </dl>
   <section class="reserva">
-    <button *ngIf="produto.status == statusProduto.livre" class="btn btn-success btn-lg" (click)="presentear(produto)">
+    <button *ngIf="produto.status == statusProduto.livre" class="btn btn-success btn-lg" (click)="togglePresentear()">
       Presentear!
     </button>
 
-    <button *ngIf="produto.status == statusProduto.reservado" class="btn btn-outline-danger btn-lg">
+    <button *ngIf="produto.status == statusProduto.reservado" class="btn btn-danger btn-lg" (click)="togglePresentear()">
       Reservado para: 
     </button>
 
-    <button *ngIf="produto.status == statusProduto.ilimitado" class="btn btn-primary btn-lg" (click)="presentear(produto)">
+    <button *ngIf="produto.status == statusProduto.ilimitado" class="btn btn-primary btn-lg" (click)="togglePresentear()">
       Presentear!
     </button>
 

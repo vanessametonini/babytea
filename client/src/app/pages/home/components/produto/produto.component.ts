@@ -10,25 +10,19 @@ import { productStatus } from "src/app/models/product-status.enum";
 export class ProdutoComponent implements OnInit {
 
   @Input() produto: Product;
-  @Output() callLogin = new EventEmitter<boolean>();
-  @Output() addToCart = new EventEmitter<Product>();
+  @Output() enviaProduto = new EventEmitter<boolean>();
 
   statusProduto = productStatus;
+  presentar = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  presentear(produto) {
-
-    if(localStorage.getItem('bbt-token')){
-      this.addToCart.emit(produto)
-    }
-    else {
-      this.callLogin.emit(true)
-    }
-
+  togglePresentear() {
+    this.presentar = !this.presentar;
+    this.enviaProduto.emit(this.presentar)
   }
 
 }

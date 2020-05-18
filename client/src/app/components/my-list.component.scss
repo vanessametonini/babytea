@@ -1,7 +1,14 @@
 .my-list {
   bottom: -5px;
+  left: 0;
   position: absolute;
-  right: 0;
+  width: 100vw;
+
+  @media (min-width: 375px) {
+    left: unset;
+    right: 0;
+    width: auto;
+  }
 
   @media (min-width: 575px) {
     right: 1rem;
@@ -28,8 +35,10 @@
   }
 
   .abrir {
-    font-family: 'Merienda One', cursive;
     border-radius: 10px 10px 0 0;
+    display: block;
+    font-family: 'Merienda One', cursive;
+    width: 100%;
 
     &:active,
     &:hover {
@@ -47,17 +56,25 @@
     &:active,
     &:hover {
       background-color:#CFB4ED;
+      color: white; 
+
+      svg g {
+        stroke: #FFF;
+      }
     }
 
   }
 
   .remover {
+    background-color: #efefef;
     border-radius: 50%;
     color: red;
-    padding: 0;
-    width: 28px;
     height: 28px;
-    float: right;
+    padding: 0;
+    position: absolute;
+    right: -12px;
+    top: -12px;
+    width: 28px;
 
     &:hover,
     &:active {
@@ -76,14 +93,14 @@
   }
 
   .lista {
-    padding: 1em;
-    display: none;
-    position: fixed;
-    width: 100vw;
-    min-height: 100vh;
     background-color: white;
-    top: 0;
+    display: none;
     left: 0;
+    min-height: 100vh;
+    padding: 1em;
+    position: fixed;
+    top: 0;
+    width: 100vw;
     z-index: 1;
 
     @media (min-width: 800px) {
@@ -97,15 +114,18 @@
   }
 
   ol {
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
     border: 1px dashed #CFB4ED;
     border-radius: 10px;
-    max-width: 96%;
-    list-style-position: inside;
-    padding: 10px 10px 10px 15px;
-  }
-
-  li {
     margin-bottom: 1em;
+    max-width: 96%;
+    padding: 10px 10px 10px 15px;
+    position: relative;
 
     &:last-of-type {
       margin-bottom: 0;

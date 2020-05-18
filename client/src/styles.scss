@@ -35,3 +35,30 @@ a {
 h2 {
   font-family: 'Cabin Sketch', cursive;
 }
+
+.btn-success {
+  border-bottom: 3px solid green;
+
+  &:active {
+    border-bottom: 0;
+    border-top: 3px solid green;
+  }
+}
+
+.btn-primary {
+  border-bottom: 3px solid darkblue;
+
+  &:active {
+    border-bottom: 0;
+    border-top: 3px solid darkblue;
+  }
+}
+
+.btn-danger {
+  border-bottom: 3px solid darkred;
+
+  &:active {
+    border-bottom: 0;
+    border-top: 3px solid darkred;
+  }
+}
