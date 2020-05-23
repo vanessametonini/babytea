@@ -12,6 +12,8 @@ const app_service_1 = require("./app.service");
 const produto_module_1 = require("./produto/produto.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const produto_entity_1 = require("./produto/produto.entity");
+const user_module_1 = require("./user/user.module");
+const user_entity_1 = require("./user/user.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -20,10 +22,11 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'sqlite',
                 database: 'babytea.db',
-                entities: [produto_entity_1.Produto],
+                entities: [produto_entity_1.Produto, user_entity_1.User],
                 synchronize: true,
             }),
             produto_module_1.ProdutoModule,
+            user_module_1.UserModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

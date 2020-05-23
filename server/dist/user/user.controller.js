@@ -22,50 +22,66 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const produto_entity_1 = require("./produto.entity");
-const jwt = require("jsonwebtoken");
-require('dotenv').config();
-let ProdutoController = class ProdutoController {
-    constructor(produtoRepository) {
-        this.produtoRepository = produtoRepository;
+const user_entity_1 = require("./user.entity");
+const user_service_1 = require("./user.service");
+let UserController = class UserController {
+    constructor(userService) {
+        this.userService = userService;
     }
-    findAll(token) {
+    list() {
         return __awaiter(this, void 0, void 0, function* () {
-            return jwt.verify(token, process.env.ACCESS_TOKEN_SUPERSECRET, (err, user) => __awaiter(this, void 0, void 0, function* () {
-                console.log(user);
-                if (err) {
-                    throw new common_1.HttpException('deu ruim no token', 401);
-                }
-                return yield this.produtoRepository.find();
-            }));
+            return yield this.userService.findAll();
         });
     }
-    create(produtoInput) {
+    create(userInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.produtoRepository.save(produtoInput);
+            return yield this.userService.create(userInput);
+        });
+    }
+    update(params, partialUser) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.userService
+                .update(params.id, partialUser)
+                .then(user => user)
+                .catch(error => error);
+        });
+    }
+    delete(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userService.delete(params.id);
         });
     }
 };
 __decorate([
     common_1.Get(),
-    __param(0, common_1.Headers('authorization')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ProdutoController.prototype, "findAll", null);
+], UserController.prototype, "list", null);
 __decorate([
     common_1.Post(),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "create", null);
+__decorate([
+    common_1.Put(':id'),
+    __param(0, common_1.Param()), __param(1, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "update", null);
+__decorate([
+    common_1.Delete(':id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], ProdutoController.prototype, "create", null);
-ProdutoController = __decorate([
-    common_1.Controller('produto'),
-    __param(0, typeorm_1.InjectRepository(produto_entity_1.Produto)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], ProdutoController);
-exports.ProdutoController = ProdutoController;
-//# sourceMappingURL=produto.controller.js.map
+], UserController.prototype, "delete", null);
+UserController = __decorate([
+    common_1.Controller('user'),
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], UserController);
+exports.UserController = UserController;
+//# sourceMappingURL=user.controller.js.map

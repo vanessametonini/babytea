@@ -24,48 +24,63 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const produto_entity_1 = require("./produto.entity");
+const user_entity_1 = require("./user.entity");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
-let ProdutoController = class ProdutoController {
-    constructor(produtoRepository) {
-        this.produtoRepository = produtoRepository;
+let UserService = class UserService {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    findAll(token) {
+    findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return jwt.verify(token, process.env.ACCESS_TOKEN_SUPERSECRET, (err, user) => __awaiter(this, void 0, void 0, function* () {
-                console.log(user);
-                if (err) {
-                    throw new common_1.HttpException('deu ruim no token', 401);
-                }
-                return yield this.produtoRepository.find();
-            }));
+            return yield this.userRepository.find();
         });
     }
-    create(produtoInput) {
+    findByEmail(userEmail) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.produtoRepository.save(produtoInput);
+            return yield this.userRepository.findOne({ email: userEmail });
+        });
+    }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.findOneOrFail(id);
+        });
+    }
+    create(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const createdUser = yield this.userRepository.save(user);
+            createdUser.token = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SUPERSECRET, { expiresIn: 86400 * 15 });
+            return createdUser;
+        });
+    }
+    update(id, newValue) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userRepository.findOneOrFail(id);
+            if (!user.id) {
+                console.error("user doesn't exist");
+            }
+            if (newValue.password) {
+                newValue.password = yield bcrypt.hash(newValue.password, 10);
+            }
+            yield this.userRepository.update(id, newValue);
+            return yield this.userRepository.findOne(id);
+        });
+    }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.delete(id);
+        });
+    }
+    login(userLoginInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
         });
     }
 };
-__decorate([
-    common_1.Get(),
-    __param(0, common_1.Headers('authorization')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ProdutoController.prototype, "findAll", null);
-__decorate([
-    common_1.Post(),
-    __param(0, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ProdutoController.prototype, "create", null);
-ProdutoController = __decorate([
-    common_1.Controller('produto'),
-    __param(0, typeorm_1.InjectRepository(produto_entity_1.Produto)),
+UserService = __decorate([
+    common_1.Injectable(),
+    __param(0, typeorm_1.InjectRepository(user_entity_1.User)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], ProdutoController);
-exports.ProdutoController = ProdutoController;
-//# sourceMappingURL=produto.controller.js.map
+], UserService);
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map
