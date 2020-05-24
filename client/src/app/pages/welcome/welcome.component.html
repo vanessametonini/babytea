@@ -2,6 +2,14 @@
   <form class="needs-validation col-sm-5" [formGroup]="formLogin" (ngSubmit)="entrar()">
     <h2>Entrar</h2>
 
+    <div *ngIf="loginAlert.length > 0" class="alert alert-danger" role="alert">
+      <ul>
+        <li *ngFor="let msg of cadastroAlert">
+          {{msg}}
+        </li>
+      </ul>
+    </div>
+
     <div class="form-group">
       <input formControlName="email" type="email" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formLogin, 'email')}" placeholder="E-mail:">
        <span class="invalid-feedback" *ngIf="formLogin.get('email').getError('required')">
@@ -31,6 +39,14 @@
   <form class="needs-validation col-sm-6" [formGroup]="formCadastro"  (ngSubmit)="cadastrar()">
     <h2>Cadastrar</h2>
 
+    <div *ngIf="cadastroAlert.length > 0" class="alert alert-danger" role="alert">
+      <ul>
+        <li *ngFor="let msg of cadastroAlert">
+          {{msg}}
+        </li>
+      </ul>
+    </div>
+
     <div class="form-group">
       <input formControlName="nome" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'nome')}" placeholder="Nome e sobrenome:">
       <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('required')">
@@ -49,7 +65,7 @@
     </div>
 
     <div class="form-group">
-      <input formControlName="email" type="email"class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'email')}" placeholder="E-mail:">
+      <input email formControlName="email" type="email"class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'email')}" placeholder="E-mail:">
 
       <span class="invalid-feedback" *ngIf="formCadastro.get('email').getError('required')">
         Preencha um email!

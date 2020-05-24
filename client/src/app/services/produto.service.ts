@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Product } from '../models/product';
 
 @Injectable({
@@ -8,11 +8,14 @@ import { Product } from '../models/product';
 export class ProdutoService {
   
   private url = "http://localhost:3000/produto";
+  private headers = new HttpHeaders({
+    Authorization: localStorage.getItem('bbt-token')
+  });
 
   constructor(private http: HttpClient) {}
 
   listar() {
-    return this.http.get<Product[]>(this.url).pipe<Product[]>((lista) => {
+    return this.http.get<Product[]>(this.url, { headers: this.headers }).pipe<Product[]>((lista) => {
       console.log(lista);
       return lista;
     });

@@ -1,38 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'bt-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+  selector: "bt-welcome",
+  templateUrl: "./welcome.component.html",
+  styleUrls: ["./welcome.component.scss"],
 })
 export class WelcomeComponent implements OnInit {
 
   formLogin = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  })
+    email: new FormControl("", [Validators.required, Validators.email]),
+    senha: new FormControl("", [Validators.required, Validators.minLength(6)]),
+  });
 
-  formCadastro = new FormGroup({
-    nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    confirmar: new FormControl('', Validators.required),
-    whatsapp: new FormControl(''),
-    termos: new FormControl(false, [Validators.required]),
-  }, {
-    validators: this.checkPassword
-  })
+  formCadastro = new FormGroup(
+    {
+      nome: new FormControl("", [Validators.required, Validators.minLength(3)]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      senha: new FormControl("", [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      confirmar: new FormControl("", Validators.required),
+      whatsapp: new FormControl(""),
+      termos: new FormControl(false, [Validators.required]),
+    },
+    {
+      validators: this.checkPassword,
+    }
+  );
 
-  showPassword: boolean = false;
+  showPassword = false;
+  loginAlert = [];
+  cadastroAlert = [];
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
-    if (localStorage.getItem('bbt-token')) {
-      this.router.navigate([''])
+    if (localStorage.getItem("bbt-token")) {
+      this.router.navigate([""]);
     }
   }
 
@@ -40,48 +48,49 @@ export class WelcomeComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  checkPassword(form: FormGroup){
+  checkPassword(form: FormGroup) {
+    const pass = form.get("senha").value,
+      confirmPass = form.get("confirmar").value;
 
-    const pass = form.get('senha').value,
-          confirmPass = form.get('confirmar').value;
-
-    return pass === confirmPass ? null : { notSame: true }     
-
+    return pass === confirmPass ? null : { notSame: true };
   }
 
-  checkFormValidation(form){
+  checkFormValidation(form) {
     if (form.invalid) {
-      form.markAllAsTouched()
+      form.markAllAsTouched();
     }
   }
-  
-  entrar(){
+
+  entrar() {
     this.checkFormValidation(this.formLogin);
 
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
-      localStorage.setItem('bbt-token', 'blablabla')
-      this.router.navigate(['']);
+      localStorage.setItem("bbt-token", "blablabla");
+      this.router.navigate([""]);
     }
   }
 
   cadastrar() {
-
     this.checkFormValidation(this.formCadastro);
 
-    if(this.formCadastro.valid){
-      console.log(this.formCadastro.value);
-      localStorage.setItem('bbt-cadastro', JSON.stringify(this.formCadastro.value))
-
-      //e login
-      localStorage.setItem('bbt-token', 'blablabla')
-      this.router.navigate(['']);
+    if (this.formCadastro.valid) {
+      this.userService.create(this.formCadastro.value).subscribe(
+        (res) => {
+          console.log(res);
+          this.router.navigate([""]);
+        },
+        (errorList) => {
+          this.cadastroAlert = errorList;
+        }
+      );
     }
-
   }
 
-  fieldValidation(form: FormGroup, field: string){
-    return form.get(field).invalid && (form.get(field).dirty || form.get(field).touched)
+  fieldValidation(form: FormGroup, field: string) {
+    return (
+      form.get(field).invalid &&
+      (form.get(field).dirty || form.get(field).touched)
+    );
   }
-
 }
