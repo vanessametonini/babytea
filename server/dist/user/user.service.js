@@ -26,11 +26,11 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./user.entity");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require('dotenv').config();
+const token_service_1 = require("../token.service");
 let UserService = class UserService {
-    constructor(userRepository) {
+    constructor(userRepository, tokenService) {
         this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -50,7 +50,7 @@ let UserService = class UserService {
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
             const createdUser = yield this.userRepository.save(user);
-            createdUser.token = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SUPERSECRET, { expiresIn: 86400 * 15 });
+            createdUser.token = this.tokenService.generate({ email: user.email });
             return createdUser;
         });
     }
@@ -74,13 +74,30 @@ let UserService = class UserService {
     }
     login(userLoginInfo) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userRepository.findOne({ email: userLoginInfo.email });
+            if (!user)
+                throw new common_1.HttpException('Email não encontrado', common_1.HttpStatus.BAD_REQUEST);
+            return bcrypt
+                .compare(userLoginInfo.password, user.password)
+                .then(match => {
+                if (!match)
+                    throw new common_1.HttpException('Senha incorreta', common_1.HttpStatus.BAD_REQUEST);
+                const token = this.tokenService.generate({ email: user.email });
+                return {
+                    nomeCompleto: user.nomeCompleto,
+                    email: user.email,
+                    produtos: user.produtos,
+                    token
+                };
+            });
         });
     }
 };
 UserService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        token_service_1.TokenService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

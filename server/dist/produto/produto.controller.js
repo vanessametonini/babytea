@@ -25,21 +25,24 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const produto_entity_1 = require("./produto.entity");
-const jwt = require("jsonwebtoken");
-require('dotenv').config();
+const token_service_1 = require("../token.service");
 let ProdutoController = class ProdutoController {
-    constructor(produtoRepository) {
+    constructor(produtoRepository, tokenService) {
         this.produtoRepository = produtoRepository;
+        this.tokenService = tokenService;
     }
     findAll(token) {
         return __awaiter(this, void 0, void 0, function* () {
-            return jwt.verify(token, process.env.ACCESS_TOKEN_SUPERSECRET, (err, user) => __awaiter(this, void 0, void 0, function* () {
-                console.log(user);
-                if (err) {
-                    throw new common_1.HttpException('deu ruim no token', 401);
-                }
-                return yield this.produtoRepository.find();
-            }));
+            return this.tokenService
+                .verify(token)
+                .then(decoded => {
+                console.log(decoded);
+                return this.produtoRepository.find();
+            })
+                .catch(erro => {
+                console.error(erro);
+                throw new common_1.HttpException('Token inválido', common_1.HttpStatus.BAD_REQUEST);
+            });
         });
     }
     create(produtoInput) {
@@ -65,7 +68,8 @@ __decorate([
 ProdutoController = __decorate([
     common_1.Controller('produto'),
     __param(0, typeorm_1.InjectRepository(produto_entity_1.Produto)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        token_service_1.TokenService])
 ], ProdutoController);
 exports.ProdutoController = ProdutoController;
 //# sourceMappingURL=produto.controller.js.map

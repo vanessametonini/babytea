@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
-require('dotenv').config();
+import { TokenService } from 'src/token.service';
+import { LoginDto } from './dto/login';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly tokenService: TokenService
   ) {}
 
   //@TODO Exigir token do admin
@@ -28,11 +29,7 @@ export class UserService {
 
   public async create(user): Promise<User> {
     const createdUser = await this.userRepository.save(user);
-    createdUser.token = jwt.sign(
-      { email: user.email },
-      process.env.ACCESS_TOKEN_SUPERSECRET,
-      { expiresIn: 86400*15 },
-    );
+    createdUser.token = this.tokenService.generate({email: user.email});
     return createdUser;
   }
 
@@ -54,22 +51,31 @@ export class UserService {
     return await this.userRepository.delete(id);
   }
 
-  public async login (userLoginInfo) {
+  public async login (userLoginInfo: LoginDto) {
 
+    const user = await this.userRepository.findOne({email: userLoginInfo.email})
+
+    if (!user)
+      throw new HttpException('Email não encontrado', HttpStatus.BAD_REQUEST);
+              
+    return bcrypt
+            .compare(userLoginInfo.password, user.password)
+            .then(match => {
+
+              if(!match) 
+                throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
+            
+              const token = this.tokenService.generate({ email: user.email });
+
+              return {
+                nomeCompleto: user.nomeCompleto,
+                email: user.email,
+                produtos: user.produtos,
+                token
+              };
+
+          })
+        
   }
 
-  // public async register(userDto: CreateUserDto) {
-
-  //   const { email } = userDto;
-
-  //   let user = await this.userRepository.findOne({ where: { email } });
-
-  //   if (user) {
-  //     throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
-  //   }
-
-  //   user = await this.userRepository.create(userDto);
-
-  //   return await this.userRepository.save(user);
-  // }
 }

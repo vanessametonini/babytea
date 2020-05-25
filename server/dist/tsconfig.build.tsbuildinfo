@@ -1945,12 +1945,16 @@
         "version": "257436eb203a8fa43bf3dc1cae4a17bf738632dcae35805d6114a2ab1011ad3e",
         "signature": "97d8c03c3b1991d809abd757cc2ee179b477f84030cbe6d750d65f47ba1e9a66"
       },
+      "../src/token.service.ts": {
+        "version": "db52de4da8b2e0bdc6a45678dd36f78c5d5bb6724a11f85204f85564b481c3b7",
+        "signature": "49994df7a257ab09d5ff927dd9f05f4289cae25a66a2b6df701491b495079910"
+      },
       "../src/produto/produto.controller.ts": {
-        "version": "a2bce38cdffb30b6d9ba18b070c25f09b35b75d52e343a114850c80150d9ce4c",
-        "signature": "b0c6c3b1fc42b3591f27119f028662fc3997f4dadeb605731c6876aa7280310a"
+        "version": "05bdbc44f7bf8031b304121421f013ca2b7a07bf64b95de6049d436a4e1422ba",
+        "signature": "ddf69921babcd5b2404c35142a1d7485b84795ec1d48f5cd46e8acd72a6204fc"
       },
       "../src/produto/produto.module.ts": {
-        "version": "420b350a03cee4d4d268a4eebb949223f5889363486fed533a89f0a9cfc757c2",
+        "version": "a034ac27669ae43af7bbc51fd00e9ea73eca03ad9b96d83a24b2a1251cd358a9",
         "signature": "b2170d2b0d95e1f73ab5615e4643c2c438df0eacf1904d47385a6fef9b5621a2"
       },
       "../node_modules/class-validator/types/validation/validationerror.d.ts": {
@@ -2457,16 +2461,20 @@
         "version": "c59f8c8a7743a0d13c28b82b31e89e3f6d82b150c018320ee6e80c92f84cf4b1",
         "signature": "9cc9e117a923b7c60dee3f0fef5fc3a09d56675af8e22e248aff7159df88ae31"
       },
+      "../src/user/dto/login.ts": {
+        "version": "96ad4880d2453584ccafa9c525ad832c2bf02c4455d781c3c843fa4c19bdaf08",
+        "signature": "b99ab85240556a9bc03e0e418c1ca51adf60a49b19066d8e4be4f7f57eba3721"
+      },
       "../src/user/user.service.ts": {
-        "version": "4718d5cb34d3a77a548b1a5ed44fee1fc78acadaf282172d903f90051d5c8dc0",
-        "signature": "bc06f4e63627ddead7e49d33312fbf4d26301a2f11958aeb3f198348add34cc0"
+        "version": "92a20d50a481d1c7d5838442e65de708ddb638664d498f046c8f1b3e7681ca19",
+        "signature": "932f9c3d25377f28c6cc172b4b51bd74a98601c27688b2e31ab6fa3535529538"
       },
       "../src/user/user.controller.ts": {
-        "version": "28a1e2d17c82d8b316d654dc6429815bae4085e07ff5f6da2eea5e9236790d99",
-        "signature": "04e19278c01053cd24fe5a42e7a73ee049259a8dfaf063e5406f8d076419d49d"
+        "version": "130a5e3c27b2a7fd4f3fecdc51dd04a59697a0d365111b333d36e3f165f5071e",
+        "signature": "ee01eff4decd86f9b2468cf1e8d15abd0817c506f10f532f791604efae691a55"
       },
       "../src/user/user.module.ts": {
-        "version": "6696293d46f03064ebd255cde1c22ecf39cbe42caa10ca4eb533775d92fe937e",
+        "version": "efda825e63d896f4e76d1acd7255982441520de0bdc248746e259b48d022f175",
         "signature": "482b8f0d35a3d453500a15b6c6057c1e4c40baa4329b39da9e1026d8e1de4329"
       },
       "../src/app.module.ts": {
@@ -7598,11 +7606,20 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/token.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/produto/produto.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/produto/produto.entity.ts",
+        "../src/token.service.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -7614,6 +7631,7 @@
         "../src/produto/produto.controller.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/produto/produto.entity.ts",
+        "../src/token.service.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -8768,11 +8786,21 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/user/dto/login.ts": [
+        "../node_modules/class-validator/types/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/user/user.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/user/user.entity.ts",
+        "../src/token.service.ts",
+        "../src/user/dto/login.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -8795,6 +8823,7 @@
         "../src/user/user.entity.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/user/user.service.ts",
+        "../src/token.service.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -14553,7 +14582,8 @@
       ],
       "../src/produto/produto.controller.ts": [
         "../node_modules/typeorm/index.d.ts",
-        "../src/produto/produto.entity.ts"
+        "../src/produto/produto.entity.ts",
+        "../src/token.service.ts"
       ],
       "../node_modules/class-validator/types/validation/validationerror.d.ts": [
         "../node_modules/@types/node/fs.d.ts",
@@ -15681,7 +15711,9 @@
       ],
       "../src/user/user.service.ts": [
         "../node_modules/typeorm/index.d.ts",
-        "../src/user/user.entity.ts"
+        "../src/user/user.entity.ts",
+        "../src/token.service.ts",
+        "../src/user/dto/login.ts"
       ],
       "../src/user/user.controller.ts": [
         "../node_modules/typeorm/index.d.ts",
@@ -17335,6 +17367,9 @@
       "../node_modules/@nestjs/typeorm/dist/index.d.ts",
       "../node_modules/@nestjs/typeorm/index.d.ts",
       "../src/produto/produto.entity.ts",
+      "../src/token.service.ts",
+      "../src/produto/produto.controller.ts",
+      "../src/produto/produto.module.ts",
       "../node_modules/class-validator/types/validation/validationerror.d.ts",
       "../node_modules/class-validator/types/validation/validatoroptions.d.ts",
       "../node_modules/class-validator/types/validation-schema/validationschema.d.ts",
@@ -17461,7 +17496,7 @@
       "../src/user/validators/is-email-unique.ts",
       "../src/user/validators/is-whatsapp-unique.ts",
       "../src/user/user.entity.ts",
-      "../src/user/user.service.ts",
+      "../src/user/dto/login.ts",
       "../src/user/user.controller.ts",
       "../src/user/user.module.ts",
       "../src/app.module.ts",
@@ -17596,8 +17631,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/produto/produto.controller.ts",
-      "../src/produto/produto.module.ts"
+      "../src/user/user.service.ts"
     ]
   },
   "version": "3.8.3"

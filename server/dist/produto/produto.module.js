@@ -10,12 +10,14 @@ const common_1 = require("@nestjs/common");
 const produto_controller_1 = require("./produto.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const produto_entity_1 = require("./produto.entity");
+const token_service_1 = require("../token.service");
 let ProdutoModule = class ProdutoModule {
 };
 ProdutoModule = __decorate([
     common_1.Module({
         imports: [typeorm_1.TypeOrmModule.forFeature([produto_entity_1.Produto])],
         controllers: [produto_controller_1.ProdutoController],
+        providers: [token_service_1.TokenService]
     })
 ], ProdutoModule);
 exports.ProdutoModule = ProdutoModule;

@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  
   constructor(private userService: UserService) {}
 
   //@TODO Exigir token do admin
@@ -17,9 +18,13 @@ export class UserController {
     return await this.userService.create(userInput);
   }
 
+  @Post('/login')
+  async login(@Body() userInput: { email, password }) {
+    return this.userService.login(userInput);    
+  }
+
   @Put(':id')
   async update(@Param() params, @Body() partialUser): Promise<User> {
-
     return this.userService
       .update(params.id, partialUser)
       .then(user => user)

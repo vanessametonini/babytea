@@ -38,6 +38,11 @@ let UserController = class UserController {
             return yield this.userService.create(userInput);
         });
     }
+    login(userInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.userService.login(userInput);
+        });
+    }
     update(params, partialUser) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.userService
@@ -65,6 +70,13 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
+__decorate([
+    common_1.Post('/login'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "login", null);
 __decorate([
     common_1.Put(':id'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),
