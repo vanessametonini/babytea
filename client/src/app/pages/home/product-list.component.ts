@@ -23,27 +23,26 @@ export class ProductListComponent implements OnInit {
     this.produtoService.listar().subscribe(lista => this.listaProdutos = lista);
   }
 
+  atualizarProdutoEListaNaAPI (produto) {
+    this.produtoService.atualizarStatus(produto).subscribe(
+      () => {
+        this.userService.updateUserList(produto)
+          .subscribe()
+      }
+    )
+  }
+
   toggleProdutoNaMinhaLista(isAdd: boolean, produto: Product) {
 
     if(isAdd){
       produto.status = productStatus.reservado;
-      this.myListService.adicionarProduto(produto)
-
-      this.userService.updateUserList(produto)
-      .subscribe(
-        res => console.log(res),
-        erro => console.log(erro)
-      )
+      this.myListService.adicionarProduto(produto);
+      this.atualizarProdutoEListaNaAPI(produto);
     }
     else {
       produto.status = productStatus.livre;
-      this.myListService.removerProduto(produto)
-
-      this.userService.updateUserList(produto)
-      .subscribe(
-        res => console.log(res),
-        erro => console.log(erro)
-      )
+      this.myListService.removerProduto(produto);
+      this.atualizarProdutoEListaNaAPI(produto);
     }
 
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
+import { productStatus } from '../models/product-status.enum';
 
 @Injectable({
   providedIn: "root",
@@ -30,6 +31,13 @@ export class ProdutoService {
   }
 
   atualizar(produto: Product) {
-    return this.http.patch(`${this.url}`, produto);
+    return this.http.put(`${this.url}`, produto);
+  }
+
+  atualizarStatus({id, status}) {
+    console.log(id);
+    console.log(status);
+    
+    return this.http.put(`${this.url}/${id}`, {status}, { headers: this.headers});
   }
 }

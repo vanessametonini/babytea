@@ -5,6 +5,7 @@ import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token.service';
 import { LoginDto } from './dto/login';
+import { UserOutputDto } from './dto/user';
 
 @Injectable()
 export class UserService {
@@ -27,11 +28,17 @@ export class UserService {
     return await this.userRepository.findOneOrFail(id);
   }
 
-  public async create(user): Promise<User> {
+  public async create(user): Promise<UserOutputDto> {
     user.produtos = [];
     const createdUser = await this.userRepository.save(user);
-    createdUser.token = this.tokenService.generate({email: user.email});
-    return createdUser;
+
+    return {
+      id: createdUser.id,
+      nome: createdUser.nomeCompleto,
+      email: createdUser.email,
+      produtos: createdUser.produtos,
+      token: this.tokenService.generate({ email: user.email })
+    };
   }
 
   public async update(id, newValue): Promise<User> {
@@ -80,7 +87,7 @@ export class UserService {
     return await this.userRepository.delete(id);
   }
 
-  public async login (userLoginInfo: LoginDto) {
+  public async login (userLoginInfo: LoginDto): Promise<UserOutputDto> {
 
     const user = await this.userRepository.findOne({email: userLoginInfo.email})
 
@@ -94,14 +101,12 @@ export class UserService {
               if(!match) 
                 throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
             
-              const token = this.tokenService.generate({ email: user.email });
-
               return {
                 id: user.id,
-                nomeCompleto: user.nomeCompleto,
+                nome: user.nomeCompleto,
                 email: user.email,
                 produtos: user.produtos,
-                token
+                token: this.tokenService.generate({ email: user.email })
               };
 
           })
