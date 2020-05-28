@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Product } from '../models/product';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class ProdutoService {
   
-  private url = "http://localhost:3000/produto";
+  private url = `${environment.api}/produto`;
   private headers = new HttpHeaders({
     Authorization: localStorage.getItem('bbt-token')
   });
@@ -16,7 +17,6 @@ export class ProdutoService {
 
   listar() {
     return this.http.get<Product[]>(this.url, { headers: this.headers }).pipe<Product[]>((lista) => {
-      console.log(lista);
       return lista;
     });
   }

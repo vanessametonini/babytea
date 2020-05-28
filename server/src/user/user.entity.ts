@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, BeforeInsert, BeforeUpdate, OneToMany } from "typeorm";
 import { Produto } from "src/produto/produto.entity";
 import { IsEmail, IsNotEmpty} from "class-validator";
 
@@ -39,12 +39,9 @@ export class User {
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;
 
-  @ManyToOne(
-    type => Produto,
-    (produto: Produto) => produto.id,
-    { eager: true },
-  )
-  produtos: Produto;
+  
+  @Column({ nullable: true, array: true, type: 'simple-json' })
+  produtos: Produto[];
 
   @BeforeInsert()
   async hashPassword() {

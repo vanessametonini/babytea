@@ -35,12 +35,8 @@ let ProdutoController = class ProdutoController {
         return __awaiter(this, void 0, void 0, function* () {
             return this.tokenService
                 .verify(token)
-                .then(decoded => {
-                console.log(decoded);
-                return this.produtoRepository.find();
-            })
+                .then(decoded => this.produtoRepository.find())
                 .catch(erro => {
-                console.error(erro);
                 throw new common_1.HttpException('Token inválido', common_1.HttpStatus.BAD_REQUEST);
             });
         });

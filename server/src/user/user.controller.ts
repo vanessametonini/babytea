@@ -31,6 +31,12 @@ export class UserController {
       .catch(error => error);
   }
 
+  @Put(':id/list')
+  async updateUserProducts(@Param() params, @Body() produto): Promise<any> {
+    return this.userService
+      .updateProducts(params.id, produto)
+  }
+
   @Delete(':id')
   async delete(@Param() params) {
     return await this.userService.delete(params.id);

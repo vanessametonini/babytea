@@ -7,7 +7,7 @@ export declare class User {
     password: string;
     termos: boolean;
     cadastradoEm: Date;
-    produtos: Produto;
+    produtos: Produto[];
     hashPassword(): Promise<void>;
     comparePassword(attempt: string): Promise<any>;
 }

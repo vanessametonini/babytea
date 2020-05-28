@@ -10,5 +10,6 @@ export declare class UserController {
         password: any;
     }): Promise<any>;
     update(params: any, partialUser: any): Promise<User>;
+    updateUserProducts(params: any, produto: any): Promise<any>;
     delete(params: any): Promise<import("typeorm").DeleteResult>;
 }

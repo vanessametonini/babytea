@@ -49,6 +49,7 @@ let UserService = class UserService {
     }
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            user.produtos = [];
             const createdUser = yield this.userRepository.save(user);
             createdUser.token = this.tokenService.generate({ email: user.email });
             return createdUser;
@@ -57,14 +58,33 @@ let UserService = class UserService {
     update(id, newValue) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userRepository.findOneOrFail(id);
-            if (!user.id) {
-                console.error("user doesn't exist");
-            }
+            if (!user)
+                throw new common_1.HttpException('Usuário não encontrado', common_1.HttpStatus.BAD_REQUEST);
             if (newValue.password) {
                 newValue.password = yield bcrypt.hash(newValue.password, 10);
             }
             yield this.userRepository.update(id, newValue);
             return yield this.userRepository.findOne(id);
+        });
+    }
+    updateProducts(id, produto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userRepository.findOneOrFail(id);
+            if (!user)
+                throw new common_1.HttpException('Usuário não encontrado', common_1.HttpStatus.BAD_REQUEST);
+            const produtoEncontrado = user.produtos.find(produtoApi => produtoApi.id == produto.id);
+            if (produtoEncontrado) {
+                yield this.userRepository
+                    .update(id, {
+                    produtos: user.produtos.filter(produtoApi => produtoApi.id != produto.id)
+                });
+                return yield this.userRepository.findOne(id);
+            }
+            else {
+                user.produtos.push(produto);
+                yield this.userRepository.update(id, user);
+                return yield this.userRepository.findOne(id);
+            }
         });
     }
     delete(id) {
@@ -84,6 +104,7 @@ let UserService = class UserService {
                     throw new common_1.HttpException('Senha incorreta', common_1.HttpStatus.BAD_REQUEST);
                 const token = this.tokenService.generate({ email: user.email });
                 return {
+                    id: user.id,
                     nomeCompleto: user.nomeCompleto,
                     email: user.email,
                     produtos: user.produtos,

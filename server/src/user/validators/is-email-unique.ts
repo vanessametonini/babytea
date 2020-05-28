@@ -18,7 +18,6 @@ export function IsEmailAlreadyExist(validationOptions?: ValidationOptions) {
           return getRepository(User)
             .findOne({ email })
             .then(user => {
-              console.log(user);
               if (user) return false;
               return true;
             });

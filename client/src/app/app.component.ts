@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from './services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bt-root',
@@ -6,6 +8,14 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class AppComponent {
+
+  constructor(private userService: UserService
+              ,private router: Router) {}
+
+  sair(){
+    this.userService.logout();
+    this.router.navigate(["welcome"]);
+  }
 
   isLoggedIn() {
     if (localStorage.getItem('bbt-token')) {

@@ -15,7 +15,6 @@ function IsWhatsappAlreadyExist(validationOptions) {
                     return typeorm_1.getRepository(user_entity_1.User)
                         .findOne({ whatsapp })
                         .then(user => {
-                        console.log(user);
                         if (user)
                             return false;
                         return true;

@@ -28,6 +28,7 @@ export class UserService {
   }
 
   public async create(user): Promise<User> {
+    user.produtos = [];
     const createdUser = await this.userRepository.save(user);
     createdUser.token = this.tokenService.generate({email: user.email});
     return createdUser;
@@ -35,9 +36,8 @@ export class UserService {
 
   public async update(id, newValue): Promise<User> {
     const user = await this.userRepository.findOneOrFail(id);
-    if (!user.id) {
-      console.error("user doesn't exist");
-    }
+    if (!user) 
+      throw new HttpException('Usuário não encontrado', HttpStatus.BAD_REQUEST);
 
     if(newValue.password) {
       newValue.password = await bcrypt.hash(newValue.password, 10);
@@ -45,6 +45,35 @@ export class UserService {
 
     await this.userRepository.update(id, newValue);
     return await this.userRepository.findOne(id);
+  }
+
+  public async updateProducts(id, produto) {
+
+    const user = await this.userRepository.findOneOrFail(id);
+
+    if (!user)
+      throw new HttpException('Usuário não encontrado', HttpStatus.BAD_REQUEST);
+
+    const produtoEncontrado = user.produtos.find(produtoApi => produtoApi.id == produto.id);
+    
+    if (produtoEncontrado){
+      //se encontrou remove
+      await this.userRepository
+            .update(id, 
+              { 
+                produtos: user.produtos.filter( produtoApi => produtoApi.id != produto.id) 
+              }
+            );
+
+      return await this.userRepository.findOne(id);
+    }
+    else {
+      //se nao encontrou um igual adiciona na lista
+      user.produtos.push(produto)
+      await this.userRepository.update(id, user);
+      return await this.userRepository.findOne(id);
+    }
+
   }
 
   public async delete(id: number) {
@@ -68,6 +97,7 @@ export class UserService {
               const token = this.tokenService.generate({ email: user.email });
 
               return {
+                id: user.id,
                 nomeCompleto: user.nomeCompleto,
                 email: user.email,
                 produtos: user.produtos,

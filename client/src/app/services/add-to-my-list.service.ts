@@ -7,10 +7,15 @@ import { Subject } from 'rxjs';
 })
 export class AddToMyListService {
 
+  private userName = new Subject<string>();
   private listaDeProdutos: Product[] = [];
   public emissorDeProdutos = new Subject<Product[]>();
 
   constructor() { }
+
+  defineUserName(nome: string){
+    this.userName.next(nome);
+  }
 
   adicionarProduto(produto: Product){
     this.listaDeProdutos.push(produto);

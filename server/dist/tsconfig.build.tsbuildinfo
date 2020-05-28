@@ -1942,7 +1942,7 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f"
       },
       "../src/produto/produto.entity.ts": {
-        "version": "257436eb203a8fa43bf3dc1cae4a17bf738632dcae35805d6114a2ab1011ad3e",
+        "version": "db3744a604d4d4f77b21a127085ae9dd94559f017b16546e16b3e3503257dee4",
         "signature": "97d8c03c3b1991d809abd757cc2ee179b477f84030cbe6d750d65f47ba1e9a66"
       },
       "../src/token.service.ts": {
@@ -1950,7 +1950,7 @@
         "signature": "49994df7a257ab09d5ff927dd9f05f4289cae25a66a2b6df701491b495079910"
       },
       "../src/produto/produto.controller.ts": {
-        "version": "05bdbc44f7bf8031b304121421f013ca2b7a07bf64b95de6049d436a4e1422ba",
+        "version": "b61f441cdf87da7293b865dea5e66e54f0c3dce33f70cfc48582b62944d0a7c4",
         "signature": "ddf69921babcd5b2404c35142a1d7485b84795ec1d48f5cd46e8acd72a6204fc"
       },
       "../src/produto/produto.module.ts": {
@@ -2450,28 +2450,28 @@
         "signature": "1d5f30cbd06ffa2aab22346b087e140f069851c17b91189be8d1e168d53f9f93"
       },
       "../src/user/validators/is-email-unique.ts": {
-        "version": "5d28e5061cb9e0ccad9fecd1714297ccf287c754787d08c05c0e9f3bcebd8cb5",
+        "version": "2bcc0c3aa8738ed628c8330343bb24368baabc1796024a2def88783a31e1c836",
         "signature": "9334e7b737d924d74aba307d3be4382942de3f8a41531eb1b1ebd37edf50d493"
       },
       "../src/user/validators/is-whatsapp-unique.ts": {
-        "version": "bc85685e7d547bb41f241a25b850c06a24ada3a444ff96c474f431fd5bb7e817",
+        "version": "0bb06acb7d32864f4bd803a8bfad583ea91f93089358b6f04172b84f32f032fd",
         "signature": "fd8e4acf7016b724f5f90be9d4de619184f743f6c78935f964a870ca6c7bbf3c"
       },
       "../src/user/user.entity.ts": {
-        "version": "c59f8c8a7743a0d13c28b82b31e89e3f6d82b150c018320ee6e80c92f84cf4b1",
-        "signature": "9cc9e117a923b7c60dee3f0fef5fc3a09d56675af8e22e248aff7159df88ae31"
+        "version": "ec34dffe42431148e9391d4e809311c009f147b0fdeaf52d351eaac68f861f09",
+        "signature": "2ce69f485effb5fe72454d1fc91031a2fe14b2898695a5fd5b709c9f4d442f22"
       },
       "../src/user/dto/login.ts": {
         "version": "96ad4880d2453584ccafa9c525ad832c2bf02c4455d781c3c843fa4c19bdaf08",
         "signature": "b99ab85240556a9bc03e0e418c1ca51adf60a49b19066d8e4be4f7f57eba3721"
       },
       "../src/user/user.service.ts": {
-        "version": "92a20d50a481d1c7d5838442e65de708ddb638664d498f046c8f1b3e7681ca19",
-        "signature": "932f9c3d25377f28c6cc172b4b51bd74a98601c27688b2e31ab6fa3535529538"
+        "version": "82668dd666ffcf8df386d988032c5aa0b4342a88bb62b6658d38a1058b82bad2",
+        "signature": "41adcf87c3fc154a9cf0c065c4a0a1ae127d6e480da0d20ef5365c12b3d0deb1"
       },
       "../src/user/user.controller.ts": {
-        "version": "130a5e3c27b2a7fd4f3fecdc51dd04a59697a0d365111b333d36e3f165f5071e",
-        "signature": "ee01eff4decd86f9b2468cf1e8d15abd0817c506f10f532f791604efae691a55"
+        "version": "23c0d845739f1dd1f592b6281f6897e289cc3ae6ee82d63ba9da25f9124ab22d",
+        "signature": "d107784509f8857251dd0a80c45aa8896fde52913bfab02dcfa14b81a5bc7921"
       },
       "../src/user/user.module.ts": {
         "version": "efda825e63d896f4e76d1acd7255982441520de0bdc248746e259b48d022f175",

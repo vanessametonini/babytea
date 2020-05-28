@@ -52,4 +52,5 @@ export class Produto {
 
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;
+  
 }

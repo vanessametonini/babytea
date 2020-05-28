@@ -33,8 +33,8 @@ export class WelcomeComponent implements OnInit {
   );
 
   showPassword = false;
-  loginAlert = [];
-  cadastroAlert = [];
+  loginAlert: any;
+  cadastroAlert: any;
 
   constructor(private router: Router, private userService: UserService) {}
 
@@ -61,26 +61,34 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-  entrar() {
+  async entrar() {
+    
     this.checkFormValidation(this.formLogin);
 
     if (this.formLogin.valid) {
-      console.log(this.formLogin.value);
-      localStorage.setItem("bbt-token", "blablabla");
-      this.router.navigate([""]);
+
+     const aaa = await this.userService.login(this.formLogin.value)
+
+      aaa.subscribe(
+        res => console.log(res),
+        errorList => this.loginAlert = errorList,
+        () => this.router.navigate([""])
+      )
+      
     }
+
   }
 
   cadastrar() {
+
     this.checkFormValidation(this.formCadastro);
 
     if (this.formCadastro.valid) {
       this.userService.create(this.formCadastro.value).subscribe(
-        (res) => {
-          console.log(res);
+        res => {
           this.router.navigate([""]);
         },
-        (errorList) => {
+        errorList => {
           this.cadastroAlert = errorList;
         }
       );

@@ -72,8 +72,8 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "cadastradoEm", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => produto_entity_1.Produto, (produto) => produto.id, { eager: true }),
-    __metadata("design:type", produto_entity_1.Produto)
+    typeorm_1.Column({ nullable: true, array: true, type: 'simple-json' }),
+    __metadata("design:type", Array)
 ], User.prototype, "produtos", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),

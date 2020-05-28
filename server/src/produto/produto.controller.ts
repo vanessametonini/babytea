@@ -17,12 +17,8 @@ export class ProdutoController {
 
       return this.tokenService
                   .verify(token)
-                  .then( decoded => {
-                    console.log(decoded);
-                    return this.produtoRepository.find();
-                  })
-                  .catch( erro => {
-                    console.error(erro);
+                  .then(decoded => this.produtoRepository.find())
+                  .catch(erro => {
                     throw new HttpException('Token inválido', HttpStatus.BAD_REQUEST);
                   })
 

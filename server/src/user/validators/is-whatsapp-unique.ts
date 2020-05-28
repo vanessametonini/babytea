@@ -18,7 +18,6 @@ export function IsWhatsappAlreadyExist(validationOptions?: ValidationOptions) {
           return getRepository(User)
             .findOne({ whatsapp })
             .then(user => {
-              console.log(user);
               if (user) return false;
               return true;
             });

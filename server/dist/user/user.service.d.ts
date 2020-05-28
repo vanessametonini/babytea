@@ -11,6 +11,7 @@ export declare class UserService {
     findById(id: string): Promise<User>;
     create(user: any): Promise<User>;
     update(id: any, newValue: any): Promise<User>;
+    updateProducts(id: any, produto: any): Promise<User>;
     delete(id: number): Promise<import("typeorm").DeleteResult>;
     login(userLoginInfo: LoginDto): Promise<any>;
 }
