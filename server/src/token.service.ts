@@ -12,7 +12,7 @@ export class TokenService {
     return JWT.sign(userData, process.env.ACCESS_TOKEN_SUPERSECRET, this.options)
   }
 
-  verify(token) {
+  verify(token): Promise<decodedToken> {
 
     return new Promise((resolve, reject) => {
       JWT.verify(token, process.env.ACCESS_TOKEN_SUPERSECRET, (err, decoded) => {
@@ -25,4 +25,10 @@ export class TokenService {
 
   }
 
+}
+
+export type decodedToken = {
+  email: string;
+  iat: number;
+  exp: number;
 }

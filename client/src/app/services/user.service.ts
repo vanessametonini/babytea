@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Product } from '../models/product';
-import { AddToMyListService } from './add-to-my-list.service';
 import { UserResponseObject } from '../models/user.ro';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -17,10 +16,17 @@ export class UserService {
     Authorization: localStorage.getItem("bbt-token"),
   });
 
-  private userData: UserResponseObject;
+  private _userData: UserResponseObject;
 
   constructor(private http: HttpClient) {
-    this.userData = JSON.parse(localStorage.getItem("bbt-user"));
+    this._userData = JSON.parse(localStorage.getItem("bbt-user"));
+  }
+
+  private setUserData(user) {
+    localStorage.setItem("bbt-token", user.token);
+    localStorage.setItem("bbt-user", JSON.stringify(user));
+    this._userData = user;
+    return user;
   }
 
   create (user) {
@@ -33,11 +39,7 @@ export class UserService {
     return this.http
                .post(this.url, userDto)
                .pipe(
-                  map((user: any) => {
-                    localStorage.setItem("bbt-token", user.token);
-                    localStorage.setItem("bbt-user", JSON.stringify(user));
-                    return user;
-                  }),
+                  map((user: any) => this.setUserData(user)),
                   catchError(erro => {
                     if(erro.error.message)
                       throw erro.error.message
@@ -46,25 +48,21 @@ export class UserService {
                 );
   }
 
-  async login (loginData) {
+  login (loginData) {
 
     const loginDto = {
       email: loginData.email,
       password: loginData.senha
     }
 
-    return await this.http
+    return this.http
                 .post(`${this.url}/login`, loginDto)
                 .pipe(
-                  map((user: UserResponseObject) => {
-
-                    localStorage.setItem("bbt-token", user.token);
-                    localStorage.setItem("bbt-user", JSON.stringify(user));
-
-                    return user
-                  }),
+                  map((user: UserResponseObject) => this.setUserData(user)),
                   catchError(erro => {
-                    throw erro.error.message
+                    if (erro.error.message)
+                      throw erro.error.message
+                    return erro
                   })
                 );
   }
@@ -75,7 +73,11 @@ export class UserService {
   }
 
   updateUserList (produto: Product) {
-    return this.http.put(`${this.url}/${this.userData.id}/list`, produto)
+    return this.http.put(`${this.url}/${this._userData.id}/list`, produto, {headers: this.headers })
+  }
+
+  getUserList (): Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.url}/${this._userData.id}/list`, {headers: this.headers})
   }
 
 }

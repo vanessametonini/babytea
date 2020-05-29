@@ -6,15 +6,22 @@ import { UseInterceptors, ClassSerializerInterceptor } from "@nestjs/common";
 import { IsEmailAlreadyExist } from "./validators/is-email-unique";
 import * as bcrypt from 'bcrypt';
 import { IsWhatsappAlreadyExist } from "./validators/is-whatsapp-unique";
+import { Exclude, Expose, Transform } from "class-transformer";
 
+
+
+@Exclude({toPlainOnly: true})
 @UseInterceptors(ClassSerializerInterceptor)
 @Entity({
   name: 'usuarios',
 })
 export class User {
+
+  @Expose()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Expose({name: 'nome', toPlainOnly: true})
   @IsNotEmpty()
   @Column({ nullable: false })
   nomeCompleto: string;
@@ -23,6 +30,7 @@ export class User {
   @Column({ nullable: true, unique: true })
   whatsapp: string;
 
+  @Expose()
   @IsEmail()
   @IsEmailAlreadyExist({ message: 'Email já cadastrado!' })
   @Column({ nullable: false, unique: true })
@@ -39,8 +47,8 @@ export class User {
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;
 
-  
-  @Column({ nullable: true, array: true, type: 'simple-json' })
+  @Expose()
+  @OneToMany(type => Produto, produto => produto.user, {eager: true})
   produtos: Produto[];
 
   @BeforeInsert()
@@ -52,14 +60,4 @@ export class User {
     return await bcrypt.compare(attempt, this.password);
   }
 
-  // toResponseObject(showToken: boolean = true): UserRO {
-  //   const { id, nomeCompleto, email } = this;
-  //   const responseObject: UserRO = {
-  //     id,
-  //     nomeCompleto,
-  //     email,
-  //   };
-
-  //   return responseObject;
-  // }
 }

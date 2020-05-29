@@ -17,7 +17,6 @@ import { User } from './user/user.entity';
     ProdutoModule,
     UserModule
   ],
-  controllers: [AppController],
-  providers: [],
+  controllers: [AppController]
 })
 export class AppModule {}

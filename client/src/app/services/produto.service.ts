@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { productStatus } from '../models/product-status.enum';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -16,10 +17,8 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) {}
 
-  listar() {
-    return this.http.get<Product[]>(this.url, { headers: this.headers }).pipe<Product[]>((lista) => {
-      return lista;
-    });
+  listar(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.url, { headers: this.headers })
   }
 
   gravar(produto: Product) {
@@ -34,10 +33,7 @@ export class ProdutoService {
     return this.http.put(`${this.url}`, produto);
   }
 
-  atualizarStatus({id, status}) {
-    console.log(id);
-    console.log(status);
-    
-    return this.http.put(`${this.url}/${id}`, {status}, { headers: this.headers});
+  atualizarReserva({id, status}) {
+    return this.http.put(`${this.url}/${id}`, {status}, { headers: this.headers });
   }
 }

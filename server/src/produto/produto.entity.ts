@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
+import { User } from 'src/user/user.entity';
 
 export enum productStatus {
   reservado = 'reservado',
@@ -43,6 +44,9 @@ export class Produto {
 
   @Column({ nullable: false, enum: productStatus })
   status: productStatus;
+
+  @ManyToOne(type => User, user => user.produtos)
+  user: User;
   
   @Column({ nullable: false, enum: categoria })
   categoria: categoria;

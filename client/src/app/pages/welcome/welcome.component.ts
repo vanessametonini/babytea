@@ -61,20 +61,15 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-  async entrar() {
+  entrar() {
     
     this.checkFormValidation(this.formLogin);
 
     if (this.formLogin.valid) {
-
-     const aaa = await this.userService.login(this.formLogin.value)
-
-      aaa.subscribe(
-        res => console.log(res),
+     this.userService.login(this.formLogin.value).subscribe(
+       () => this.router.navigate([""]),
         errorList => this.loginAlert = errorList,
-        () => this.router.navigate([""])
       )
-      
     }
 
   }
@@ -85,14 +80,11 @@ export class WelcomeComponent implements OnInit {
 
     if (this.formCadastro.valid) {
       this.userService.create(this.formCadastro.value).subscribe(
-        res => {
-          this.router.navigate([""]);
-        },
-        errorList => {
-          this.cadastroAlert = errorList;
-        }
-      );
+        () => this.router.navigate([""]),
+        errorList => this.cadastroAlert = errorList
+      )
     }
+
   }
 
   fieldValidation(form: FormGroup, field: string) {

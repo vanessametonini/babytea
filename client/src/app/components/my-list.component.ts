@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 import { AddToMyListService } from '../services/add-to-my-list.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'bt-my-list',
@@ -10,17 +11,22 @@ import { AddToMyListService } from '../services/add-to-my-list.service';
 export class MyListComponent implements OnInit {
 
   products: Product[] = [];
-  user= "";
   isProductsVisible = 'none';
 
-  constructor(private myListService: AddToMyListService) { }
+  constructor(private myListService: AddToMyListService
+            ,private userService: UserService) {}
 
   ngOnInit(): void {
-    this.myListService
-        .emissorDeProdutos
-        .subscribe(listaDeProdutos => {
-          this.products = listaDeProdutos
-        })
+
+    this.userService.getUserList().subscribe(listaDeProdutosUserApi => {
+      this.products = listaDeProdutosUserApi
+    })
+    
+    // this.myListService
+    //     .emissorDeProdutos
+    //     .subscribe(listaDeProdutos => {
+    //       this.products = listaDeProdutos
+    //     })
   }
 
   verLista(){

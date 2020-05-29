@@ -3,7 +3,6 @@ import { Product } from 'src/app/models/product';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AddToMyListService } from 'src/app/services/add-to-my-list.service';
 import { productStatus } from 'src/app/models/product-status.enum';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'bt-product-list',
@@ -16,25 +15,30 @@ export class ProductListComponent implements OnInit {
   statusProduto = productStatus;
 
   constructor(private produtoService: ProdutoService
-              ,private myListService: AddToMyListService
-              , private userService: UserService) { }
+              ,private myListService: AddToMyListService) { }
 
   ngOnInit() {
-    this.produtoService.listar().subscribe(lista => this.listaProdutos = lista);
+    this.produtoService.listar().subscribe(lista => {
+      this.listaProdutos = lista
+
+      console.log(this.listaProdutos);
+      
+    });
   }
 
   atualizarProdutoEListaNaAPI (produto) {
-    this.produtoService.atualizarStatus(produto).subscribe(
-      () => {
-        this.userService.updateUserList(produto)
-          .subscribe()
-      }
-    )
+
+    this.produtoService
+        .atualizarReserva(produto)
+        .subscribe(
+          produtoApi => console.log(produtoApi)
+        )
+
   }
 
-  toggleProdutoNaMinhaLista(isAdd: boolean, produto: Product) {
+  toggleProdutoNaMinhaLista(produto: Product) {
 
-    if(isAdd){
+    if (produto.status == productStatus.livre){
       produto.status = productStatus.reservado;
       this.myListService.adicionarProduto(produto);
       this.atualizarProdutoEListaNaAPI(produto);

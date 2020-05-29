@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -6,9 +6,11 @@ import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token.service';
 import { LoginDto } from './dto/login';
 import { UserOutputDto } from './dto/user';
+import { Produto } from 'src/produto/produto.entity';
 
 @Injectable()
 export class UserService {
+  
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -54,7 +56,7 @@ export class UserService {
     return await this.userRepository.findOne(id);
   }
 
-  public async updateProducts(id, produto) {
+  public async updateProducts(id, produto): Promise<User> {
 
     const user = await this.userRepository.findOneOrFail(id);
 
@@ -79,6 +81,21 @@ export class UserService {
       user.produtos.push(produto)
       await this.userRepository.update(id, user);
       return await this.userRepository.findOne(id);
+    }
+
+  }
+
+  public async getProducts(id, token): Promise<Produto[]> {
+    
+    const decodedToken = await Promise.resolve(await this.tokenService.verify(token));
+
+    if (!decodedToken)
+      throw new ForbiddenException('Token inválido');
+
+    const user = await Promise.resolve(this.userRepository.findOne({ email: decodedToken.email}));
+
+    if(user.id == id ){
+      return user.produtos
     }
 
   }

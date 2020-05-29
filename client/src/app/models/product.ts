@@ -1,6 +1,7 @@
 import { Loja } from './loja';
 import { productStatus } from './product-status.enum';
 import { categoria } from './categoria.enum';
+import { UserResponseObject } from './user.ro';
 
 export class Product {
   id: string;
@@ -14,4 +15,5 @@ export class Product {
   lojas: Loja[] = [];
   status: productStatus;
   categoria: categoria;
+  user: UserResponseObject;
 }

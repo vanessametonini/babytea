@@ -22,7 +22,7 @@ export class ProdutoComponent implements OnInit {
 
   togglePresentear() {
     this.presentar = !this.presentar;
-    this.enviaProduto.emit(this.presentar)
+    this.enviaProduto.emit();
   }
 
 }

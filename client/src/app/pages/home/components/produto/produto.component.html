@@ -8,7 +8,16 @@
       >
     <figcaption>imagem ilustrativa</figcaption>
   </figure>
-  <h3><strong>{{produto.quantidade}}</strong> {{produto.titulo}}</h3>
+  <h3>
+    <strong>
+    {{
+      produto.status == statusProduto.ilimitado
+      ? '('+produto.status+') - '
+      : produto.quantidade
+    }}    
+  </strong> 
+    {{produto.titulo}}
+  </h3>
   <dl>
     <dt>Valores:</dt>
     <dd>de {{produto.valorMin | currency:'BRL'}} a {{produto.valorMax | currency:'BRL'}}</dd>
@@ -29,7 +38,7 @@
     </button>
 
     <button *ngIf="produto.status == statusProduto.reservado" class="btn btn-danger btn-lg" (click)="togglePresentear()">
-      Reservado para: 
+      Reservado para: {{produto.user.nome}}
     </button>
 
     <button *ngIf="produto.status == statusProduto.ilimitado" class="btn btn-primary btn-lg" (click)="togglePresentear()">
