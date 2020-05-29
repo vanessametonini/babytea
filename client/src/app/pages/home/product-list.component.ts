@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AddToMyListService } from 'src/app/services/add-to-my-list.service';
 import { productStatus } from 'src/app/models/product-status.enum';
+import { ProdutoComponent } from './components/produto/produto.component';
 
 @Component({
   selector: 'bt-product-list',
@@ -13,7 +14,6 @@ export class ProductListComponent implements OnInit {
 
   listaProdutos: Product[] = [];
   statusProduto = productStatus;
-  mensagemErro = "";
 
   constructor(private produtoService: ProdutoService
               ,private myListService: AddToMyListService) { }
@@ -27,8 +27,8 @@ export class ProductListComponent implements OnInit {
       this.listaProdutos = lista
     });
   }
-
-  reservarProduto(produto: Product) {
+  
+  reservarProduto(produto: Product, thisProdutoComponent: ProdutoComponent) {
 
     this.produtoService
         .atualizarReserva(produto)
@@ -37,7 +37,9 @@ export class ProductListComponent implements OnInit {
             this.getListaDeProdutos();
             this.myListService.atualizaProduto(produto);
           },
-          erro => this.mensagemErro = erro
+          erro => {
+            thisProdutoComponent.mensagemErro = erro
+          }
         )
   }
 

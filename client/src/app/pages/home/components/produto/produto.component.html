@@ -34,6 +34,15 @@
   </dl>
   <section class="reserva">
 
+    <div class="popover fade bs-popover-top"
+    [ngClass]="{'show': mensagemErro}"
+    role="tooltip" (click)="closePopover()">
+      <div class="arrow"></div>
+      <div class="popover-body">
+        {{mensagemErro}}
+      </div>
+    </div>
+
     <button 
       class="btn btn-lg"
       [ngClass]="{

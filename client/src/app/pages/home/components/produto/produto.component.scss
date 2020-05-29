@@ -30,6 +30,32 @@ img {
 }
 
 .reserva {
+  position: relative;
   display: flex;
   justify-content: center;
+
+  .popover {
+    box-shadow: -1px -3px 10px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    will-change: transform; 
+    transform: translate3d(0, -95%, 0); 
+    width: 100%;
+
+    &.show {
+      transform: translate3d(0, -105%, 0); 
+    }
+
+    &.fade {
+      transition: opacity .15s linear, transform .15s linear;
+    }
+
+    .arrow {
+      left: 50%;
+    }
+    
+  }
+  
 }

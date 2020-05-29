@@ -11,8 +11,9 @@
     <ol>
       <li *ngFor="let produto of listaProdutos">
         <bt-produto 
+        #thisProdutoComponent
         [produto]="produto"
-        (reservaProduto)="reservarProduto(produto)"
+        (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
           ></bt-produto>
       </li>
     </ol>

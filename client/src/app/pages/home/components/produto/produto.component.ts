@@ -1,22 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { productStatus } from "src/app/models/product-status.enum";
+import { productStatus } from 'src/app/models/product-status.enum';
 
 @Component({
   selector: 'bt-produto',
   templateUrl: './produto.component.html',
   styleUrls: ['./produto.component.scss']
 })
-export class ProdutoComponent implements OnInit {
+export class ProdutoComponent {
 
   @Input() produto: Product;
-  @Output() reservaProduto = new EventEmitter<boolean>();
-
+  @Output() reservaProduto = new EventEmitter();
   statusProduto = productStatus;
+  mensagemErro = "";
 
-  constructor() { }
-
-  ngOnInit(): void {
+  closePopover () {
+    this.mensagemErro = "";
   }
 
   togglePresentear() {
