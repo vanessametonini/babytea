@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
-import { productStatus } from '../models/product-status.enum';
 import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -33,8 +33,19 @@ export class ProdutoService {
     return this.http.put(`${this.url}`, produto);
   }
 
-  atualizarReserva({id, status}): Observable<Product> {
-    return this.http.put<Product>(`${this.url}/${id}`, {status}, { headers: this.headers });
+  atualizarReserva({ id, status }): Observable<Product> {
+    return this.http.put<Product>(`${this.url}/${id}`, {status}, { headers: this.headers })
+                    .pipe(
+                      map(
+                        produto => produto
+                      ),
+                      catchError(
+                        (httpError: HttpErrorResponse) => { 
+                          throw httpError.error.message;
+                        }
+                      )
+                    )
+                    
   }
   
 }

@@ -36,6 +36,10 @@ h2 {
   font-family: 'Cabin Sketch', cursive;
 }
 
+.btn {
+  transition: background-color 500ms;
+}
+
 .btn-success {
   border-bottom: 3px solid green;
 

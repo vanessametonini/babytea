@@ -47,15 +47,15 @@ export class ProdutoController {
 
     const produto = await Promise.resolve(this.produtoRepository.findOne(params.id, { relations: ["user"] }));
     const user = await Promise.resolve(this.userService.findByEmail(decodedToken.email));
-
+    
     //[RESERVANDO]
     //se o produto no banco estiver livre
-    //e o status que vier for reservado
+    //e o status do produto que vier for livre
     if(produto.status == productStatus.livre 
-      && partialProduct.status == productStatus.reservado) {
+      && partialProduct.status == productStatus.livre) {
         
       //entao produto fica reservado
-      produto.status = partialProduct.status;
+      produto.status = productStatus.reservado
       //reserva para usuario:
       produto.user = user;
 
@@ -66,17 +66,16 @@ export class ProdutoController {
 
     //[LIBERANDO RESERVA]
     //se o produto no banco estiver reservado
-    //e o status que vier for livre
+    //e o status do produto que vier for reservado
     if (produto.status == productStatus.reservado 
-      && partialProduct.status == productStatus.livre ) {
+      && partialProduct.status == productStatus.reservado ) {
+        
       //se o usuario do produto é o mesmo usuario do token
-
       if (produto.user.email == user.email) {
         //entao produto fica livre
-        produto.status = partialProduct.status;
+        produto.status = productStatus.livre
         //retira o usuario do produto
         produto.user = null;
-  
         //atualiza no banco
         this.produtoRepository.update(params.id, produto);
       }

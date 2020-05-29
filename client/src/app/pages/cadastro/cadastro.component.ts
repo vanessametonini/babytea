@@ -61,21 +61,12 @@ export class CadastroComponent implements OnInit {
     if (this.formCadastro.invalid) {
       this.formCadastro.markAllAsTouched();
       return
-    }
-
-    console.log(this.formCadastro.value);
+    } 
 
     this.servico
       .gravar(this.formCadastro.value)
       .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['']);
-          
-        }
-        , (erro: HttpErrorResponse) => {
-          console.log(erro.error.body[0].message);
-        }
+        () => this.router.navigate([''])
       )
   }
 

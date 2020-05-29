@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
 
   listaProdutos: Product[] = [];
   statusProduto = productStatus;
+  mensagemErro = "";
 
   constructor(private produtoService: ProdutoService
               ,private myListService: AddToMyListService) { }
@@ -29,30 +30,15 @@ export class ProductListComponent implements OnInit {
 
   reservarProduto(produto: Product) {
 
-    produto.status == productStatus.livre
-      ? produto.status = productStatus.reservado
-      : produto.status = productStatus.livre;
-
     this.produtoService
         .atualizarReserva(produto)
         .subscribe(
-          () => {
-            this.getListaDeProdutos()
-            this.myListService.atualizaProduto(produto)
-          }
+          produto => {
+            this.getListaDeProdutos();
+            this.myListService.atualizaProduto(produto);
+          },
+          erro => this.mensagemErro = erro
         )
-
-    // if (produto.status == productStatus.livre){
-    //   produto.status = productStatus.reservado;
-    //   this.myListService.adicionarProduto(produto);
-    //   this.atualizarProdutoEListaNaAPI(produto);
-    // }
-    // else {
-    //   produto.status = productStatus.livre;
-    //   this.myListService.removerProduto(produto);
-    //   this.atualizarProdutoEListaNaAPI(produto);
-    // }
-
   }
 
 }
