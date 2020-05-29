@@ -5,7 +5,6 @@ import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token.service';
 import { LoginDto } from './dto/login';
-import { UserOutputDto } from './dto/user';
 import { Produto } from 'src/produto/produto.entity';
 
 @Injectable()
@@ -30,17 +29,34 @@ export class UserService {
     return await this.userRepository.findOneOrFail(id);
   }
 
-  public async create(user): Promise<UserOutputDto> {
+  public async create(user): Promise<User> {
     user.produtos = [];
     const createdUser = await this.userRepository.save(user);
+    createdUser.token = this.tokenService.generate({ email: user.email });
 
-    return {
-      id: createdUser.id,
-      nome: createdUser.nomeCompleto,
-      email: createdUser.email,
-      produtos: createdUser.produtos,
-      token: this.tokenService.generate({ email: user.email })
-    };
+    return createdUser;
+  }
+
+  public async login(userLoginInfo: LoginDto): Promise<User> {
+
+    const user = await this.userRepository.findOne({ email: userLoginInfo.email }, {relations: ["produtos"]})
+
+    if (!user)
+      throw new HttpException('Email não encontrado', HttpStatus.BAD_REQUEST);
+
+    return bcrypt
+      .compare(userLoginInfo.password, user.password)
+      .then(match => {
+
+        if (!match)
+          throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
+
+        user.token = this.tokenService.generate({ email: user.email })
+
+        return user;
+
+      })
+
   }
 
   public async update(id, newValue): Promise<User> {
@@ -102,32 +118,6 @@ export class UserService {
 
   public async delete(id: number) {
     return await this.userRepository.delete(id);
-  }
-
-  public async login (userLoginInfo: LoginDto): Promise<UserOutputDto> {
-
-    const user = await this.userRepository.findOne({email: userLoginInfo.email})
-
-    if (!user)
-      throw new HttpException('Email não encontrado', HttpStatus.BAD_REQUEST);
-              
-    return bcrypt
-            .compare(userLoginInfo.password, user.password)
-            .then(match => {
-
-              if(!match) 
-                throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
-            
-              return {
-                id: user.id,
-                nome: user.nomeCompleto,
-                email: user.email,
-                produtos: user.produtos,
-                token: this.tokenService.generate({ email: user.email })
-              };
-
-          })
-        
   }
 
 }

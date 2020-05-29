@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Put, Delete, Param, Headers } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Delete, Param, Headers, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
-import { UserOutputDto } from './dto/user';
 import { LoginDto } from './dto/login';
 import { Produto } from 'src/produto/produto.entity';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('user')
 export class UserController {
   
@@ -17,12 +17,12 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() userInput: User): Promise<UserOutputDto> {
+  async create(@Body() userInput: User): Promise<User> {
     return await this.userService.create(userInput);
   }
 
   @Post('/login')
-  async login(@Body() userInput: LoginDto): Promise<UserOutputDto> {
+  async login(@Body() userInput: LoginDto): Promise<User> {
     return this.userService.login(userInput);    
   }
 

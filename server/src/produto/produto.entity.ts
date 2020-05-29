@@ -45,7 +45,7 @@ export class Produto {
   @Column({ nullable: false, enum: productStatus })
   status: productStatus;
 
-  @ManyToOne(type => User, user => user.produtos)
+  @ManyToOne(type => User, user => user.produtos, {nullable: true})
   user: User;
   
   @Column({ nullable: false, enum: categoria })

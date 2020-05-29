@@ -2,16 +2,12 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Be
 import { Produto } from "src/produto/produto.entity";
 import { IsEmail, IsNotEmpty} from "class-validator";
 
-import { UseInterceptors, ClassSerializerInterceptor } from "@nestjs/common";
 import { IsEmailAlreadyExist } from "./validators/is-email-unique";
 import * as bcrypt from 'bcrypt';
 import { IsWhatsappAlreadyExist } from "./validators/is-whatsapp-unique";
-import { Exclude, Expose, Transform } from "class-transformer";
-
-
+import { Exclude, Expose } from "class-transformer";
 
 @Exclude({toPlainOnly: true})
-@UseInterceptors(ClassSerializerInterceptor)
 @Entity({
   name: 'usuarios',
 })
@@ -48,16 +44,15 @@ export class User {
   cadastradoEm: Date;
 
   @Expose()
-  @OneToMany(type => Produto, produto => produto.user, {eager: true})
+  @OneToMany(type => Produto, produto => produto.user)
   produtos: Produto[];
+
+  @Expose()
+  token?: string;
 
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
   }
-
-  async comparePassword(attempt: string) {
-    return await bcrypt.compare(attempt, this.password);
-  }
-
+  
 }

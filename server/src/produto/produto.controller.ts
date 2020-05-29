@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Headers, Put, Param, ForbiddenException, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Headers, Put, Param, ForbiddenException, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Produto, productStatus } from './produto.entity';
 import { TokenService } from 'src/token.service';
 import { UserService } from 'src/user/user.service';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('produto')
 export class ProdutoController {
 
