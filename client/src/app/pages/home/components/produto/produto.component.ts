@@ -10,10 +10,9 @@ import { productStatus } from "src/app/models/product-status.enum";
 export class ProdutoComponent implements OnInit {
 
   @Input() produto: Product;
-  @Output() enviaProduto = new EventEmitter<boolean>();
+  @Output() reservaProduto = new EventEmitter<boolean>();
 
   statusProduto = productStatus;
-  presentar = false;
 
   constructor() { }
 
@@ -21,8 +20,7 @@ export class ProdutoComponent implements OnInit {
   }
 
   togglePresentear() {
-    this.presentar = !this.presentar;
-    this.enviaProduto.emit();
+    this.reservaProduto.emit();
   }
 
 }

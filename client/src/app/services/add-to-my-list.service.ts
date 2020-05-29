@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { Subject } from 'rxjs';
+import { productStatus } from '../models/product-status.enum';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,22 @@ export class AddToMyListService {
   private listaDeProdutos: Product[] = [];
   public emissorDeProdutos = new Subject<Product[]>();
 
-  constructor() { }
+  constructor(private userService: UserService) {
+
+    this.userService.getUserList().subscribe(listaDeProdutosUserApi => {
+      if (listaDeProdutosUserApi){
+        this.listaDeProdutos = listaDeProdutosUserApi;
+        this.emissorDeProdutos.next(this.listaDeProdutos);
+      }
+    })
+
+   }
+
+  atualizaProduto(produto: Product) {
+    produto.status == productStatus.livre
+      ? this.removerProduto(produto)
+      : this.adicionarProduto(produto)
+  }
 
   adicionarProduto(produto: Product){
     this.listaDeProdutos.push(produto);

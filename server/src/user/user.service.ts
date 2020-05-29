@@ -108,7 +108,7 @@ export class UserService {
     if (!decodedToken)
       throw new ForbiddenException('Token inválido');
 
-    const user = await Promise.resolve(this.userRepository.findOne({ email: decodedToken.email}));
+    const user = await Promise.resolve(this.userRepository.findOne({ email: decodedToken.email}, { relations: ["produtos"]}));
 
     if(user.id == id ){
       return user.produtos

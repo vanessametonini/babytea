@@ -33,7 +33,8 @@ export class ProdutoService {
     return this.http.put(`${this.url}`, produto);
   }
 
-  atualizarReserva({id, status}) {
-    return this.http.put(`${this.url}/${id}`, {status}, { headers: this.headers });
+  atualizarReserva({id, status}): Observable<Product> {
+    return this.http.put<Product>(`${this.url}/${id}`, {status}, { headers: this.headers });
   }
+  
 }

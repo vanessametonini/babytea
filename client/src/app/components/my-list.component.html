@@ -28,7 +28,7 @@
         Você ainda não reservou um presente! 
       </p>
       <p>
-        Confira a lista de presentes, fechando esta janela, e depois rolando a tela para baixo.
+        Confira a lista de presentes, fechando esta janela, e depois deslizando a tela para baixo.
       </p>
       <p>
         Clique em <strong>presentear</strong> caso queira reservar determinado item!
@@ -36,7 +36,7 @@
     </div>
 
     <div *ngIf="products.length > 0">
-      <p>Olá Ciclana! Veja os itens que você já reservou para presentear:</p>
+      <p>Olá {{userName}}! Veja os itens que você já reservou para presentear:</p>
       <ol>
         <li *ngFor="let produto of products">
           <a [routerLink]="['produto', produto.id]">{{produto.titulo}}</a> 

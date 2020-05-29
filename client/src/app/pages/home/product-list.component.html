@@ -12,7 +12,7 @@
       <li *ngFor="let produto of listaProdutos">
         <bt-produto 
         [produto]="produto"
-        (enviaProduto)="toggleProdutoNaMinhaLista(produto)"
+        (reservaProduto)="reservarProduto(produto)"
           ></bt-produto>
       </li>
     </ol>

@@ -45,6 +45,15 @@ h2 {
   }
 }
 
+.btn-secondary {
+  border-bottom: 3px solid #222;
+
+  &:active {
+    border-bottom: 0;
+    border-top: 3px solid #222;
+  }
+}
+
 .btn-primary {
   border-bottom: 3px solid darkblue;
 
