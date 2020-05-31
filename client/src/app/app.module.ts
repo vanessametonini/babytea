@@ -7,19 +7,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt-PT';
-import { MyListComponent } from './components/my-list.component';
+
+import { MyListComponent } from './components/my-list/my-list.component';
+
+import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastComponent } from './components/toast/toast.component';
 
 registerLocaleData(pt);
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyListComponent
+    MyListComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule    
+    HttpClientModule, 
+    NgbToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

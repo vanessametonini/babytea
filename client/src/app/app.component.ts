@@ -4,32 +4,31 @@ import { Router } from '@angular/router';
 import { Product } from './models/product';
 
 @Component({
-  selector: 'bt-root',
+  selector: "bt-root",
   templateUrl: `./app.component.html`,
   styles: [],
 })
-export class AppComponent implements OnInit{
-
+export class AppComponent implements OnInit {
   userList: Product[] = [];
 
-  constructor(private userService: UserService
-              ,private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  sair(){
+  sair() {
     this.userService.logout();
     this.router.navigate(["welcome"]);
   }
 
   isLoggedIn() {
-    if (localStorage.getItem('bbt-token')) {
+    if (localStorage.getItem("bbt-token")) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
-  
+
 }

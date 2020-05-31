@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product';
-import { AddToMyListService } from '../services/add-to-my-list.service';
-import { UserService } from '../services/user.service';
-import { UserResponseObject } from '../models/user.ro';
+import { Product } from '../../models/product';
+import { AddToMyListService } from '../../services/add-to-my-list.service';
+import { UserResponseObject } from '../../models/user.ro';
 
 @Component({
   selector: 'bt-my-list',
