@@ -23,18 +23,39 @@ export class AddToMyListService {
 
    }
 
-  atualizaProduto(produto: Product) {
-    produto.status == productStatus.livre
-      ? this.removerProduto(produto)
-      : this.adicionarProduto(produto)
+  atualizaProduto(produto: Product): void {    
+
+    switch (produto.status) {
+
+      case productStatus.livre:
+        this.removerProduto(produto)
+        break;
+
+      case productStatus.reservado:
+        this.adicionarProduto(produto)
+        break;
+
+      case productStatus.ilimitado:
+
+        const produtoEncontrado = this.listaDeProdutos.find(produtoMyList => produtoMyList.id == produto.id);
+
+        if (produtoEncontrado) {
+          this.removerProduto(produto)
+          break;
+        }
+        
+        this.adicionarProduto(produto)
+        break;
+    }
+
   }
 
-  adicionarProduto(produto: Product){
+  adicionarProduto(produto: Product): void {
     this.listaDeProdutos.push(produto);
     this.emissorDeProdutos.next(this.listaDeProdutos);
   }
 
-  removerProduto(produto: Product) {
+  removerProduto(produto: Product): void {
     this.listaDeProdutos = this.listaDeProdutos.filter(produtoDaLista => produtoDaLista.id != produto.id);
     this.emissorDeProdutos.next(this.listaDeProdutos);
   }

@@ -21,12 +21,17 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  public async findByEmail(userEmail: string): Promise<User> {
-    return await this.userRepository.findOne({ email: userEmail });
+  public async findByEmail(userEmail: string, products: boolean = false): Promise<User> {
+
+    if(products)
+      return await this.userRepository.findOne({ email: userEmail }, { relations: ["produtos"] })
+    
+    return await this.userRepository.findOne({ email: userEmail })
+
   }
 
-  public async findById(id: string): Promise<User> {
-    return await this.userRepository.findOneOrFail(id);
+  public async findById(userId: string): Promise<User> {
+    return await this.userRepository.findOneOrFail(userId);
   }
 
   public async create(user): Promise<User> {
@@ -59,46 +64,30 @@ export class UserService {
 
   }
 
-  public async update(id, newValue): Promise<User> {
-    const user = await this.userRepository.findOneOrFail(id);
+  public async update(userId: string, newValue: Partial<User>): Promise<User> {
+    
+    const user = await this.userRepository.findOneOrFail(userId);
+
     if (!user) 
       throw new HttpException('Usuário não encontrado', HttpStatus.BAD_REQUEST);
 
-    if(newValue.password) {
+    if(newValue.password) 
       newValue.password = await bcrypt.hash(newValue.password, 10);
-    }
+    
+    await this.userRepository.update(userId, newValue);
+    return await this.userRepository.findOne(userId);
 
-    await this.userRepository.update(id, newValue);
-    return await this.userRepository.findOne(id);
   }
 
-  public async updateProducts(id, produto): Promise<User> {
+  public async save(userId: string, userData: User) {
 
-    const user = await this.userRepository.findOneOrFail(id);
+    const user = await this.userRepository.findOne(userId, { relations: ["produtos"] });
 
     if (!user)
       throw new HttpException('Usuário não encontrado', HttpStatus.BAD_REQUEST);
-
-    const produtoEncontrado = user.produtos.find(produtoApi => produtoApi.id == produto.id);
-    
-    if (produtoEncontrado){
-      //se encontrou remove
-      await this.userRepository
-            .update(id, 
-              { 
-                produtos: user.produtos.filter( produtoApi => produtoApi.id != produto.id) 
-              }
-            );
-
-      return await this.userRepository.findOne(id);
-    }
-    else {
-      //se nao encontrou um igual adiciona na lista
-      user.produtos.push(produto)
-      await this.userRepository.update(id, user);
-      return await this.userRepository.findOne(id);
-    }
-
+  
+    await this.userRepository.save(userData);
+    return await this.userRepository.findOne(userId, { relations: ["produtos"] });
   }
 
   public async getProducts(id, token): Promise<Produto[]> {

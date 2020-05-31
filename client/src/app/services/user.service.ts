@@ -72,10 +72,6 @@ export class UserService {
     localStorage.removeItem('bbt-user');
   }
 
-  updateUserList (produto: Product) {
-    return this.http.put(`${this.url}/${this._userData.id}/list`, produto, {headers: this.headers })
-  }
-
   getUserList (): Observable<Product[]>{
     return this.http.get<Product[]>(`${this.url}/${this._userData.id}/list`, {headers: this.headers})
   }

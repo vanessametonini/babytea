@@ -34,12 +34,6 @@ export class UserController {
       .catch(error => error);
   }
 
-  @Put(':id/list')
-  async updateUserProducts(@Param() params, @Body() produto): Promise<any> {
-    return this.userService
-      .updateProducts(params.id, produto)
-  }
-
   @Get(':id/list')
   async getUserProducts(@Param() params, @Headers('authorization') token): Promise<Produto[]> {
     return this.userService.getProducts(params.id, token);

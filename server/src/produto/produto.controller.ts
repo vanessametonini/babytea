@@ -40,13 +40,14 @@ export class ProdutoController {
     @Body() partialProduct: Produto
   ) {
 
+    const productId = params.id;
     const decodedToken = await Promise.resolve(await this.tokenService.verify(token));
     
     if(!decodedToken)
       throw new ForbiddenException('Token inválido');
 
-    const produto = await Promise.resolve(this.produtoRepository.findOne(params.id, { relations: ["user"] }));
-    const user = await Promise.resolve(this.userService.findByEmail(decodedToken.email));
+    const produto = await Promise.resolve(this.produtoRepository.findOne(productId, { relations: ["user"] }));
+    const user = await Promise.resolve(this.userService.findByEmail(decodedToken.email, true));
     
     //[RESERVANDO]
     //se o produto no banco estiver livre
@@ -86,8 +87,28 @@ export class ProdutoController {
       }
         
     }
-    
-    return this.produtoRepository.findOne(params.id, {relations: ["user"]});
+
+    //[ILIMITADOS]
+    //se o produto for ilimitado
+    if(produto.status == productStatus.ilimitado) {
+      //acessa a lista de produtos do usuario
+      const produtoEncontrado = user.produtos.find(produtoApi => produtoApi.id == produto.id);
+
+      if (produtoEncontrado) {
+        //se produto encontrado, remove
+        user.produtos = user.produtos.filter(produtoApi => produtoApi.id != produto.id)
+        this.userService.save(user.id, user);
+      }
+
+      else {
+        //se nao encontrou produto, adiciona na lista
+        user.produtos.push(produto)
+        this.userService.save(user.id, user);
+      }
+
+    }
+   
+    return this.produtoRepository.findOne(productId, {relations: ["user"]});
 
   }
 

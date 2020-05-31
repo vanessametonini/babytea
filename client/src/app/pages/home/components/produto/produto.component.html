@@ -46,16 +46,16 @@
     <button 
       class="btn btn-lg"
       [ngClass]="{
-        'btn-success btn-lg': produto.status == statusProduto.livre,
-        'btn-primary btn-lg': produto.status == statusProduto.ilimitado,
+        'btn-success': produto.status == statusProduto.livre,
+        'btn-primary': produto.status == statusProduto.ilimitado,
         'btn-secondary btn-sm': produto.status == statusProduto.reservado
       }"  
       (click)="togglePresentear()"
     >
       {{
-        produto.status == statusProduto.livre
-        ? "Presentear!"
-        : "Reservado para: "+produto.user?.nome
+        produto.status == statusProduto.reservado
+        ? "Reservado para: "+produto.user?.nome
+        : "Presentear!"
       }}
     </button>
 

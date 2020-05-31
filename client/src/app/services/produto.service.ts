@@ -36,9 +36,7 @@ export class ProdutoService {
   atualizarReserva({ id, status }): Observable<Product> {
     return this.http.put<Product>(`${this.url}/${id}`, {status}, { headers: this.headers })
                     .pipe(
-                      map(
-                        produto => produto
-                      ),
+                      map(produto => produto),
                       catchError(
                         (httpError: HttpErrorResponse) => { 
                           throw httpError.error.message;

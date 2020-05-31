@@ -22,10 +22,10 @@ export class ProductListComponent implements OnInit {
     this.getListaDeProdutos()
   }
 
-  getListaDeProdutos(){
-    this.produtoService.listar().subscribe(lista => {
-      this.listaProdutos = lista
-    });
+  getListaDeProdutos() {
+    this.produtoService
+        .listar()
+        .subscribe(lista => this.listaProdutos = lista);
   }
   
   reservarProduto(produto: Product, thisProdutoComponent: ProdutoComponent) {
@@ -37,10 +37,9 @@ export class ProductListComponent implements OnInit {
             this.getListaDeProdutos();
             this.myListService.atualizaProduto(produto);
           },
-          erro => {
-            thisProdutoComponent.mensagemErro = erro
-          }
+          erro => thisProdutoComponent.mensagemErro = erro
         )
+
   }
 
 }
