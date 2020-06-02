@@ -3,11 +3,7 @@
     <h2>Entrar</h2>
 
     <div *ngIf="loginAlert" class="alert alert-danger" role="alert">
-      <ul>
-        <li *ngFor="let msg of cadastroAlert">
-          {{msg}}
-        </li>
-      </ul>
+      {{loginAlert}}
     </div>
 
     <div class="form-group">
@@ -48,7 +44,7 @@
     </div>
 
     <div class="form-group">
-      <input formControlName="nome" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'nome')}" placeholder="Nome e sobrenome:">
+      <input formControlName="nome" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'nome')}" placeholder="Nome+sobrenome, ou apelido:">
       <span class="invalid-feedback" *ngIf="formCadastro.get('nome').getError('required')">
         Preencha seu nome!
       </span>
@@ -58,7 +54,7 @@
     </div>
 
     <div class="form-group">
-      <input formControlName="whatsapp" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'whatsapp')}" placeholder="WhatsApp:">
+      <input formControlName="whatsapp" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'whatsapp')}" placeholder="Nº celular ou WhatsApp:">
       <span class="invalid-feedback" *ngIf="formCadastro.get('whatsapp').getError('invalid')">
         O número do WhatsApp deve ser um número de telefone com ddd
       </span>

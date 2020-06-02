@@ -34,9 +34,9 @@ export class UserController {
       .catch(error => error);
   }
 
-  @Get(':id/list')
-  async getUserProducts(@Param() params, @Headers('authorization') token): Promise<Produto[]> {
-    return this.userService.getProducts(params.id, token);
+  @Get('/mylist')
+  async getUserProducts(@Headers('authorization') token): Promise<Produto[]> {
+    return this.userService.getProducts(token);
   }
 
   @Delete(':id')

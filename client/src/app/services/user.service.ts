@@ -12,21 +12,25 @@ import { Observable } from 'rxjs';
 export class UserService {
   
   private url = `${environment.api}/user`;
-  private headers = new HttpHeaders({
-    Authorization: localStorage.getItem("bbt-token"),
-  });
-
-  private _userData: UserResponseObject;
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
-    this._userData = JSON.parse(localStorage.getItem("bbt-user"));
+    this.headers = new HttpHeaders({
+      Authorization: localStorage.getItem("bbt-token"),
+    });
   }
 
   private setUserData(user) {
+
     localStorage.setItem("bbt-token", user.token);
     localStorage.setItem("bbt-user", JSON.stringify(user));
-    this._userData = user;
+
+    this.headers = new HttpHeaders({
+      Authorization: localStorage.getItem("bbt-token"),
+    });
+
     return user;
+    
   }
 
   create (user) {
@@ -60,9 +64,7 @@ export class UserService {
                 .pipe(
                   map((user: UserResponseObject) => this.setUserData(user)),
                   catchError(erro => {
-                    if (erro.error.message)
-                      throw erro.error.message
-                    return erro
+                    throw erro.error.message
                   })
                 );
   }
@@ -73,7 +75,7 @@ export class UserService {
   }
 
   getUserList (): Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.url}/${this._userData.id}/list`, {headers: this.headers})
+    return this.http.get<Product[]>(`${this.url}/mylist`, {headers: this.headers})
   }
 
 }

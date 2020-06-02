@@ -3,7 +3,6 @@
     <h1>Chá da bebê Yasmin</h1>
     <h2>& da Vanessa e do Aarão 😄</h2>
     <nav *ngIf="isLoggedIn()">
-      <button (click)="sair()">Sair/Logout</button>
       <bt-my-list></bt-my-list>
     </nav>
   </div>
@@ -12,3 +11,11 @@
   <bt-toasts></bt-toasts>
   <router-outlet></router-outlet>
 </main>
+<footer *ngIf="isLoggedIn()" class="mb-4">
+  <div class="container">
+    <button type="button" class="btn btn-outline-info float-right" (click)="sair()">Sair/Logout</button>
+    <p>
+      Em caso de dúvidas, sugestões ou problemas neste sistema me manda um <a href="https://api.whatsapp.com/send?phone={{phone}}" target="_blank">Whatsapp</a> ou <a href="mailto:vanessametonini@gmail.com">email</a>.
+    </p>
+  </div>
+</footer>

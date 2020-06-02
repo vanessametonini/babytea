@@ -38,6 +38,11 @@ h2 {
   font-family: 'Cabin Sketch', cursive;
 }
 
+footer {
+  border-top: 2px solid $base-lila;
+  padding: 2em 0;
+}
+
 .btn {
   transition: background-color 500ms;
 }

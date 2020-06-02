@@ -9,16 +9,18 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: "root",
 })
 export class ProdutoService {
-  
   private url = `${environment.api}/produto`;
-  private headers = new HttpHeaders({
-    Authorization: localStorage.getItem('bbt-token')
-  });
-
+  private headers: HttpHeaders;
+  
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url, { headers: this.headers })
+
+    this.headers = new HttpHeaders({
+      Authorization: localStorage.getItem("bbt-token"),
+    });
+
+    return this.http.get<Product[]>(this.url, { headers: this.headers });
   }
 
   gravar(produto: Product) {
@@ -34,16 +36,18 @@ export class ProdutoService {
   }
 
   atualizarReserva({ id, status }): Observable<Product> {
-    return this.http.put<Product>(`${this.url}/${id}`, {status}, { headers: this.headers })
-                    .pipe(
-                      map(produto => produto),
-                      catchError(
-                        (httpError: HttpErrorResponse) => { 
-                          throw httpError.error.message;
-                        }
-                      )
-                    )
-                    
+
+    this.headers = new HttpHeaders({
+      Authorization: localStorage.getItem("bbt-token"),
+    });
+
+    return this.http
+      .put<Product>(`${this.url}/${id}`, { status }, { headers: this.headers })
+      .pipe(
+        map((produto) => produto),
+        catchError((httpError: HttpErrorResponse) => {
+          throw httpError.error.message;
+        })
+      );
   }
-  
 }

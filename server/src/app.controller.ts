@@ -1,10 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
+import path = require('path');
 
 @Controller()
 export class AppController {
-
+  
   @Get()
-  getHello() {
-    return { version: "1.0.0-beta" };
+  root(@Res() response): void {
+    //response.sendFile(path.resolve('../client/dist/babytea/index.html'));
   }
+
 }

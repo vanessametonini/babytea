@@ -90,18 +90,17 @@ export class UserService {
     return await this.userRepository.findOne(userId, { relations: ["produtos"] });
   }
 
-  public async getProducts(id, token): Promise<Produto[]> {
-    
+  public async getProducts(token): Promise<Produto[]> {
+
     const decodedToken = await Promise.resolve(await this.tokenService.verify(token));
 
     if (!decodedToken)
       throw new ForbiddenException('Token inválido');
+  
 
     const user = await Promise.resolve(this.userRepository.findOne({ email: decodedToken.email}, { relations: ["produtos"]}));
 
-    if(user.id == id ){
-      return user.produtos
-    }
+    return user.produtos;
 
   }
 
