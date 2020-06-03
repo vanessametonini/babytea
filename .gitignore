@@ -82,4 +82,7 @@ testem.log
 .DS_Store
 Thumbs.db
 *.db
+
+# environment
 .env
+*/**/environments
