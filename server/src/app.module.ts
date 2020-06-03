@@ -1,11 +1,12 @@
-import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ProdutoModule } from './produto/produto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Produto } from './produto/produto.entity';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
-import { FrontendMiddleware } from './frontend.middleware';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -15,18 +16,14 @@ import { FrontendMiddleware } from './frontend.middleware';
       entities: [Produto, User],
       synchronize: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'client', 'dist', 'babytea'),
+      exclude: ['/api*']
+    }),
     ProdutoModule,
     UserModule,
   ],
   controllers: [AppController],
 })
 export class AppModule {
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(FrontendMiddleware).forRoutes({
-      path: '/**', // For all routes
-      method: RequestMethod.ALL, // For all methods
-    });
-  }
-
 }
