@@ -26,14 +26,12 @@
     background-color: white;
     color: var(--gray);
     cursor: pointer;
-    padding: 10px 20px;
     text-align: center;
-
-    svg {
-      float: right;
-      margin-left: 10px;
-      width: 26px;
+    
+    &:not(.fechar) {
+      padding: 10px 20px;
     }
+
   }
 
   .abrir {
@@ -50,10 +48,21 @@
   }
 
   .fechar {
-    border-radius: 10px;
+    border: 1px solid currentColor;
+    color: #CFB4ED;
     display: block;
     margin-bottom: .5em;
     margin-left: auto;
+
+    svg {
+      position: relative;
+      top: -2px;
+      width: 18px;
+    }
+
+    svg g {
+      stroke: #CFB4ED;
+    }
 
     &:active,
     &:hover {

@@ -25,7 +25,7 @@ export class MyListComponent implements OnInit {
 
   }
 
-  verLista(){
+  toggleLista() {
     if(this.isProductsVisible === 'none') {
       this.isProductsVisible = 'block';
     } 

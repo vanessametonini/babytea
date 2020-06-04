@@ -1,6 +1,6 @@
 <section class="my-list">
 
-  <button class="abrir" type="button" (click)="verLista()">
+  <button class="abrir" type="button" (click)="toggleLista()">
     Minha lista de presentes 
     <span *ngIf="products.length == 1">
       ({{products.length}} item)
@@ -12,23 +12,24 @@
 
   <div class="lista" [ngStyle]="{'display': isProductsVisible}">
 
-    <button class="fechar" type="button" (click)="verLista()">
+    <button class="btn fechar" type="button" (click)="toggleLista()">
       Fechar
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <g fill="none" stroke="#6c757d" stroke-width="2">
+        <g fill="none" stroke="#6c757d" stroke-width="1">
           <path d="M2 14L14 2M2 2l12 12"/>
         </g>
       </svg>
     </button>
 
     <h3>Minha lista de presentes</h3>
+    <a class="btn mb-4 btn-outline-info" (click)="toggleLista()" [routerLink]="['faq']">Informações de entrega</a>
 
     <div *ngIf="products.length == 0">
       <p>
         Olá {{userName}}! Você ainda não reservou um presente! 
       </p>
       <p>
-        Confira a lista de presentes, fechando esta janela, e depois deslizando a tela para baixo.
+        Confira a lista de presentes, fechando esta aba, e depois deslizando a tela para baixo.
       </p>
       <p>
         Clique em <strong>presentear</strong> caso queira reservar determinado item!

@@ -17,6 +17,11 @@ const routes: Routes = [
     path: 'cadastro',
     loadChildren: () => import('./pages/cadastro/cadastro.module').then(m => m.CadastroModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./pages/faq/faq.module').then(m => m.FaqModule),
+    canActivate: [AuthGuard]
   }
 ];
 

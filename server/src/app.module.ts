@@ -7,13 +7,15 @@ import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { FaqModule } from './faq/faq.module';
+import { Faq } from './faq/faq.entitty';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'babytea.db',
-      entities: [Produto, User],
+      entities: [Produto, User, Faq],
       synchronize: true,
     }),
     ServeStaticModule.forRoot({
@@ -22,6 +24,7 @@ import { join } from 'path';
     }),
     ProdutoModule,
     UserModule,
+    FaqModule,
   ],
   controllers: [AppController],
 })
