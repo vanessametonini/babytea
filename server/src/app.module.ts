@@ -19,7 +19,7 @@ import { Faq } from './faq/faq.entitty';
       synchronize: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client', 'dist', 'babytea'),
+      rootPath: join(__dirname, 'public'),
       exclude: ['/api*']
     }),
     ProdutoModule,

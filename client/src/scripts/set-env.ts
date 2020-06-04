@@ -13,17 +13,26 @@ const isProd = environment === "prod";
 
 let targetPath = `./src/environments/environment.ts`
 
-if (isProd) {
-  targetPath = `./src/environments/environment.prod.ts`;
-}
-
-const envConfigFile = `
+let envConfigFile = `
 export const environment = {
   production: ${isProd},
   api: "${process.env.API}",
   phone: "${process.env.PHONE}"
 };
 `;
+
+
+if (isProd) {
+  targetPath = `./src/environments/environment.prod.ts`;
+
+  envConfigFile = `
+  export const environment = {
+    production: ${isProd},
+    api: "${process.env.APIPROD}",
+    phone: "${process.env.PHONE}"
+  };`
+}
+
 
 writeFile(targetPath, envConfigFile, function (err) {
   if (err) {

@@ -7,9 +7,9 @@
 1. Criar um arquivo .env na raiz de client, com:
   ```
   PHONE=9999999999999
-  API=http://enderecodaapi.com
+  API=http://localhost:3000
+  APIPROD=https://meusite.com.br
   ```
-  Substitua o valor de PHONE para seu telefone com DDI DDD e número local. E API para o endereco da API.
 
 1. Para iniciar a aplicacão use `npm run start`, e para build `npm run build`, pois estes gerarão dinamicamente os arquivos de ambiente que o Angular precisa.
 
