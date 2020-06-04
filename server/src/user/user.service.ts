@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus, ForbiddenException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token.service';
 import { LoginDto } from './dto/login';
 import { Produto } from 'src/produto/produto.entity';
+require('dotenv').config();
 
 @Injectable()
 export class UserService {
@@ -16,9 +17,27 @@ export class UserService {
     private readonly tokenService: TokenService
   ) {}
 
-  //@TODO Exigir token do admin
-  public async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+  public async findAll(token): Promise<User[]> {
+
+    return this.tokenService
+      .verify(token)
+      .then(decoded => {
+
+        return this.findByEmail(decoded.email)
+          .then(
+            user => {
+              if (user.email === process.env.ADMIN) {
+                return this.userRepository.find();
+              }
+            }
+          )
+          .catch(erro => erro)
+
+      })
+      .catch(erro => {
+        throw new ForbiddenException('Token inválido');
+      })
+
   }
 
   public async findByEmail(userEmail: string, products: boolean = false): Promise<User> {
@@ -96,7 +115,6 @@ export class UserService {
 
     if (!decodedToken)
       throw new ForbiddenException('Token inválido');
-  
 
     const user = await Promise.resolve(this.userRepository.findOne({ email: decodedToken.email}, { relations: ["produtos"]}));
 
@@ -104,8 +122,35 @@ export class UserService {
 
   }
 
-  public async delete(id: number) {
-    return await this.userRepository.delete(id);
+  public async delete(token, id: number) {
+
+    return this.tokenService
+      .verify(token)
+      .then(decoded => {
+
+        return this.findByEmail(decoded.email)
+          .then(
+            user => {
+              if (user.email === process.env.ADMIN) {
+                return this.userRepository.delete(id)
+              }
+            }
+          )
+          .catch(erro => erro)
+
+      })
+      .catch(erro => {
+        throw new ForbiddenException('Token inválido');
+      })
+    
+  }
+
+  public async isTokenValid(token) {
+    return this.tokenService.verify(token)
+    .then(decoded => true)
+    .catch(() => {
+      throw new UnauthorizedException('Token inválido')
+    })
   }
 
 }

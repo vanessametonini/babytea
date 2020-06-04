@@ -10,10 +10,9 @@ export class UserController {
   
   constructor(private userService: UserService) {}
 
-  //@TODO Exigir token do admin
   @Get()
-  async list(): Promise<User[]> {
-    return await this.userService.findAll();
+  async list(@Headers('authorization') token): Promise<User[]> {
+    return await this.userService.findAll(token);
   }
 
   @Post()
@@ -40,8 +39,13 @@ export class UserController {
   }
 
   @Delete(':id')
-  async delete(@Param() params) {
-    return await this.userService.delete(params.id);
+  async delete(@Headers('authorization') token, @Param() params) {
+    return await this.userService.delete(token, params.id);
+  }
+
+  @Get('/token')
+  async tokenValidation(@Headers('authorization') token) {
+    return this.userService.isTokenValid(token)
   }
   
 }

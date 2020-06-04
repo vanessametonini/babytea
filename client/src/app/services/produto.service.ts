@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: "root",
@@ -12,12 +13,12 @@ export class ProdutoService {
   private url = `${environment.api}/produto`;
   private headers: HttpHeaders;
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   listar(): Observable<Product[]> {
 
     this.headers = new HttpHeaders({
-      Authorization: localStorage.getItem("bbt-token"),
+      Authorization: this.tokenService.getToken(),
     });
 
     return this.http.get<Product[]>(this.url, { headers: this.headers });
@@ -38,7 +39,7 @@ export class ProdutoService {
   atualizarReserva({ id, status }): Observable<Product> {
 
     this.headers = new HttpHeaders({
-      Authorization: localStorage.getItem("bbt-token"),
+      Authorization: this.tokenService.getToken(),
     });
 
     return this.http

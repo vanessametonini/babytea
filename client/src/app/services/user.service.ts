@@ -5,6 +5,8 @@ import { Product } from '../models/product';
 import { UserResponseObject } from '../models/user.ro';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { TokenService } from './token.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: "root",
@@ -14,19 +16,23 @@ export class UserService {
   private url = `${environment.api}/user`;
   private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient
+    , private tokenService: TokenService
+    , private router: Router) {
+
     this.headers = new HttpHeaders({
-      Authorization: localStorage.getItem("bbt-token"),
+      Authorization: this.tokenService.getToken(),
     });
+    
   }
 
   private setUserData(user) {
 
-    localStorage.setItem("bbt-token", user.token);
+    this.tokenService.setToken(user.token);
     localStorage.setItem("bbt-user", JSON.stringify(user));
 
     this.headers = new HttpHeaders({
-      Authorization: localStorage.getItem("bbt-token"),
+      Authorization: this.tokenService.getToken(),
     });
 
     return user;
@@ -70,12 +76,16 @@ export class UserService {
   }
 
   logout () {
-    localStorage.removeItem('bbt-token');
-    localStorage.removeItem('bbt-user');
+    this.tokenService.removeToken();
+    this.router.navigate(["welcome"]);
   }
 
   getUserList (): Observable<Product[]>{
     return this.http.get<Product[]>(`${this.url}/mylist`, {headers: this.headers})
+  }
+
+  isTokenValid () {
+    return this.http.head(`${this.url}/token`, { headers: this.headers, observe: 'response' })
   }
 
 }

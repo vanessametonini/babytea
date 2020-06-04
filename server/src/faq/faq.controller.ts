@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TokenService } from 'src/token.service';
 import { UserService } from 'src/user/user.service';
-import { throwError } from 'rxjs';
 require('dotenv').config();
 
 @Controller('faq')
@@ -43,11 +42,13 @@ export class FaqController {
               if (user.email === process.env.ADMIN){
                 return this.faqRepository.save(faqInput)  
               }
-              else {
-                throwError
-              }
+
+              throw "Somente admins podem fazer isto!";
+              
             }
-          )
+        )
+        .catch(erro => erro)
+
 
       })
       .catch(erro => {
@@ -69,11 +70,9 @@ export class FaqController {
               if (user.email === process.env.ADMIN) {
                 return this.faqRepository.delete(params.id)
               }
-              else {
-                throwError
-              }
+              throw "Somente admins podem fazer isto!";
             }
-          )
+          ).catch(erro => erro)
 
       })
       .catch(erro => {

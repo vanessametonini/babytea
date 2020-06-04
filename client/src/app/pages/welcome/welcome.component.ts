@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: "bt-welcome",
@@ -36,10 +37,10 @@ export class WelcomeComponent implements OnInit {
   loginAlert: any;
   cadastroAlert: any;
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private tokenService: TokenService) {}
 
   ngOnInit() {
-    if (localStorage.getItem("bbt-token")) {
+    if (this.tokenService.getToken()) {
       this.router.navigate([""]);
     }
   }

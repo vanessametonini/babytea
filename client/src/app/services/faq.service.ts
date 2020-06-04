@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: "root",
@@ -12,9 +13,9 @@ export class FaqService {
   private url = `${environment.api}/faq`;
   private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private tokenService: TokenService) {
     this.headers = new HttpHeaders({
-      Authorization: localStorage.getItem("bbt-token"),
+      Authorization: this.tokenService.getToken(),
     });
   }
 

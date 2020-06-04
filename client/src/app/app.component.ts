@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
 import { Product } from './models/product';
 import { environment } from "src/environments/environment";
+import { TokenService } from './services/token.service';
 
 @Component({
   selector: "bt-root",
@@ -14,17 +14,17 @@ export class AppComponent implements OnInit {
   userList: Product[] = [];
   phone = environment.phone;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService
+    , private tokenService: TokenService) {}
 
   ngOnInit() {}
 
   sair() {
     this.userService.logout();
-    this.router.navigate(["welcome"]);
   }
 
   isLoggedIn() {
-    if (localStorage.getItem("bbt-token")) {
+    if (this.tokenService.getToken()) {
       return true;
     } else {
       return false;
