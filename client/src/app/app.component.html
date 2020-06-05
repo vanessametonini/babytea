@@ -11,7 +11,7 @@
   <bt-toasts></bt-toasts>
   <router-outlet></router-outlet>
 </main>
-<footer *ngIf="isLoggedIn()" class="mb-4">
+<footer *ngIf="isLoggedIn()">
   <div class="container">
     <button type="button" class="btn btn-outline-info float-right" (click)="sair()">Sair/Logout</button>
     <p>

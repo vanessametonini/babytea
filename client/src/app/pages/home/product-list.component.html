@@ -1,21 +1,61 @@
 <h1>Lista de presentes</h1>
 
-<div class="tabs">
-  <div class="heading">
-    <h2 class="active">Bebê</h2>
-    <h2>Mamãe</h2>
-    <h2>Papai</h2>
-    <h2>Família</h2>
-  </div>
-  <section class="produtos">
-    <ol>
-      <li *ngFor="let produto of listaProdutos">
-        <bt-produto 
-        #thisProdutoComponent
-        [produto]="produto"
-        (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
-          ></bt-produto>
-      </li>
-    </ol>
-  </section>
-</div>
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" (activeIdChange)="mudouDeTab($event)">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Bebê</a>
+    <ng-template ngbNavContent>
+      <ol class="produtos">
+        <li *ngFor="let produto of listaProdutos">
+          <bt-produto 
+          #thisProdutoComponent
+          [produto]="produto"
+          (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
+            ></bt-produto>
+        </li>
+      </ol>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Mamãe</a>
+    <ng-template ngbNavContent>
+       <ol class="produtos">
+        <li *ngFor="let produto of listaProdutos">
+          <bt-produto 
+          #thisProdutoComponent
+          [produto]="produto"
+          (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
+            ></bt-produto>
+        </li>
+      </ol>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Papai</a>
+    <ng-template ngbNavContent>
+       <ol class="produtos">
+        <li *ngFor="let produto of listaProdutos">
+          <bt-produto 
+          #thisProdutoComponent
+          [produto]="produto"
+          (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
+            ></bt-produto>
+        </li>
+      </ol>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="4">
+    <a ngbNavLink>Família</a>
+    <ng-template ngbNavContent>
+       <ol class="produtos">
+        <li *ngFor="let produto of listaProdutos">
+          <bt-produto 
+          #thisProdutoComponent
+          [produto]="produto"
+          (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
+            ></bt-produto>
+        </li>
+      </ol>
+    </ng-template>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>

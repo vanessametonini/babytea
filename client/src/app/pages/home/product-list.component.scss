@@ -1,10 +1,31 @@
-h2 {
-  text-align: center;
-  transition: background-color 500ms;
-  
+.nav-tabs {
+  border-bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 100vh;
+  margin-bottom: 1em;
+  overflow: auto;
+}
+
+.nav-item {
+  margin-bottom: 0;
+}
+
+.nav-item .nav-link {
+  border-radius: 0;
+  border: 0;
   cursor: pointer;
-  padding: 1rem 1.2rem;
+  color: var(--gray);
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.6em;
+  padding: .6rem 1.2rem;
   position: relative;
+  text-align: center;
+  transition: background-color 250ms;
+
+  @media (max-width: 575px) {
+    font-size: 1.4em;
+  }
 
   &:after {
     background-color: var(--purple);
@@ -15,12 +36,14 @@ h2 {
     left: 0;
     position: absolute;
     width: 0%;
-    transition: width 500ms ease-in;
+    transition: width 250ms ease-in;
   }
 
   &:active,
   &.active {
+    border: 0;
     color: var(--purple);
+
      &:after {
       width: 100%;
     }
@@ -28,7 +51,9 @@ h2 {
   
   &:hover {
     background-color: rgba(207, 180, 237, 0.4);
+    border: 0;
     color: var(--purple);
+
     &:after {
       width: 100%;
     }
@@ -36,41 +61,43 @@ h2 {
 
 }
 
-.tabs {
-  .heading {
-    display: grid;
-    grid-template-columns: repeat(4,140px);
-    max-width: 100vh;
-    margin-bottom: 2em;
-    overflow: auto;
-  }
-}
-
 .produtos {
 
-  ol {
-    display: grid;
-    gap: 2em;
-    padding: 0;
+  display: grid;
+  padding: 0;
+
+  @media (min-width: 540px) {
+    gap: 1em;
+    grid-template-columns: repeat(2, 48%);
+  }
+
+  @media (min-width: 800px) {
+    gap: 1.4em;
+    grid-template-columns: repeat(3, 32%);
+  }
+
+  @media (min-width: 1200px) {
+    gap: 1.6em;
+    grid-template-columns: repeat(4, 23%);
   }
 
   li {
     list-style-type: none;
-  }
 
-  @media (min-width: 540px) {
-    ol {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    @media (max-width: 540px) {
+      border-bottom: 2px dashed #CFB4ED;
+      padding: 2em;
+
+      &:first-child {
+        padding-top: 0;
+      }
       
+      &:last-child {
+        border: 0;
+        padding-bottom: 0;
+      }
     }
+
   }
 
-  @media (min-width: 800px) {
-    ol {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-
-    }
-  }
 }

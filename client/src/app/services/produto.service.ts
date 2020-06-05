@@ -15,13 +15,17 @@ export class ProdutoService {
   
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  listar(): Observable<Product[]> {
+  listar(categoria = ''): Observable<Product[]> {
 
     this.headers = new HttpHeaders({
       Authorization: this.tokenService.getToken(),
     });
 
-    return this.http.get<Product[]>(this.url, { headers: this.headers });
+    if (categoria) {
+      categoria = `?cat=${categoria}`
+    }
+
+    return this.http.get<Product[]>(this.url+categoria, { headers: this.headers });
   }
 
   gravar(produto: Product) {

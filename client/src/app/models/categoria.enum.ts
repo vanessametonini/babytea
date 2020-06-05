@@ -1,6 +1,6 @@
 export enum categoria {
   bebe = "bebê",
-  papai = "papai",
   mamae = "mamãe",
+  papai = "papai",
   familia = "família",
 }

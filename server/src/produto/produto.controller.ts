@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Headers, Put, Param, ForbiddenException, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Headers, Put, Param, ForbiddenException, Delete, UseInterceptors, ClassSerializerInterceptor, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Produto, productStatus } from './produto.entity';
+import { Produto, productStatus, categoria } from './produto.entity';
 import { TokenService } from 'src/token.service';
 import { UserService } from 'src/user/user.service';
 
@@ -17,11 +17,53 @@ export class ProdutoController {
   ) {}
 
   @Get()
-  async findAll(@Headers('authorization') token ): Promise<Produto[]> {
+  async findAll(@Headers('authorization') token, @Query() query ): Promise<Produto[]> {
+
+    console.log(query);
 
     return this.tokenService
                 .verify(token)
-                .then(decoded => this.produtoRepository.find({ relations: ["user"] }))
+                .then(decoded => {
+
+                  switch (query.cat) {
+
+                    case categoria.bebe:
+                      return this.produtoRepository
+                        .find({ 
+                          where: { categoria: categoria.bebe }, 
+                          relations: ["user"]
+                        })
+                      break;
+
+                    case categoria.papai:
+                      return this.produtoRepository
+                        .find({
+                          where: { categoria: categoria.papai },
+                          relations: ["user"]
+                        })
+                      break;
+
+                    case categoria.mamae:
+                      return this.produtoRepository
+                        .find({
+                          where: { categoria: categoria.mamae },
+                          relations: ["user"]
+                        })
+                      break;
+
+                    case categoria.familia:
+                      return this.produtoRepository
+                        .find({
+                          where: { categoria: categoria.familia },
+                          relations: ["user"]
+                        })
+
+                    default:
+                      return this.produtoRepository.find({ relations: ["user"] })
+                      break;
+                  }
+
+                })
                 .catch(erro => {
                   throw new ForbiddenException('Token inválido');
                 })

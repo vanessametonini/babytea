@@ -11,12 +11,25 @@ h1 {
   font-family: 'Merienda One', cursive;
 }
 
+@media (max-width: 575px) {
+
+  h1{
+    font-size: 2rem;
+  }
+
+  h2{
+    font-size: 1.4rem;
+  }
+}
+
 a {
   color: var(--purple);
 }
 
 .jumbotron {
   background-color: $base-lila;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
   color: white;
   position: relative;
   overflow: hidden;
@@ -41,6 +54,10 @@ h2 {
 footer {
   border-top: 2px solid $base-lila;
   padding: 2em 0;
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .btn {

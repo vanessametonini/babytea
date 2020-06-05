@@ -6,6 +6,7 @@ import { productStatus } from 'src/app/models/product-status.enum';
 import { ProdutoComponent } from './components/produto/produto.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
+import { categoria } from 'src/app/models/categoria.enum';
 
 @Component({
   selector: "bt-product-list",
@@ -13,8 +14,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ["./product-list.component.scss"],
 })
 export class ProductListComponent implements OnInit {
+  
   listaProdutos: Product[] = [];
   statusProduto = productStatus;
+  active = 1;
 
   constructor(
     private produtoService: ProdutoService,
@@ -23,12 +26,12 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getListaDeProdutos();
+    this.getListaDeProdutos(categoria.bebe);
   }
 
-  getListaDeProdutos() {
+  getListaDeProdutos(cat) {
     this.produtoService
-      .listar()
+      .listar(cat)
       .subscribe(
         lista => this.listaProdutos = lista,
         (erro: HttpErrorResponse) => {
@@ -41,10 +44,26 @@ export class ProductListComponent implements OnInit {
   reservarProduto(produto: Product, thisProdutoComponent: ProdutoComponent) {
     this.produtoService.atualizarReserva(produto).subscribe(
       produto => {
-        this.getListaDeProdutos();
+        this.getListaDeProdutos(produto.categoria);
         this.myListService.atualizaProduto(produto);
       },
       erro => thisProdutoComponent.mensagemErro = erro
     );
   }
+
+  mudouDeTab(tabClicada){
+
+    let cat;
+
+    (function (cat) {
+      cat[cat[categoria.bebe] = 1] = categoria.bebe;
+      cat[cat[categoria.mamae] = 2] = categoria.mamae;
+      cat[cat[categoria.papai] = 3] = categoria.papai;
+      cat[cat[categoria.familia] = 4] = categoria.familia;
+    })(cat || (cat = {}));
+
+    this.getListaDeProdutos(cat[tabClicada])
+    
+  }
+
 }

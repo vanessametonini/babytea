@@ -1,7 +1,11 @@
 .produto {
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
-  border-radius: 10px;
-  padding: 1em 2em;
+
+  @media (min-width: 540px) {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    padding: 1em 2em;
+  }
+  
 }
 
 figure {
@@ -27,6 +31,10 @@ img {
   height: 150px;
   object-fit: contain;
   width: 150px;
+}
+
+h3 {
+  color: var(--purple);
 }
 
 .reserva {
