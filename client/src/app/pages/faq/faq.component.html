@@ -1,6 +1,8 @@
 <article class="mb-4">
-<h2>Informações</h2>
-{{content}}
+  <h2>Informações</h2>
+  <p *ngFor="let faq of faqList">
+    {{faq.content}}
+  </p>
 </article>
 <nav>
   <a [routerLink]="['']" class="btn btn-outline-primary">Voltar à lista de presentes</a>

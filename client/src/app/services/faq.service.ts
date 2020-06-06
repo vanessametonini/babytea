@@ -19,8 +19,8 @@ export class FaqService {
     });
   }
 
-  getFaq(): Observable<Faq> {
-    return this.http.get<Faq>(this.url, { headers: this.headers }).pipe (map( faq => faq[0]))
+  getFaq(): Observable<Faq[]> {
+    return this.http.get<Faq[]>(this.url, { headers: this.headers }).pipe (map(faq => faq))
   }
 
 }

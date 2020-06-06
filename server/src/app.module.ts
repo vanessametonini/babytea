@@ -8,7 +8,7 @@ import { User } from './user/user.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { FaqModule } from './faq/faq.module';
-import { Faq } from './faq/faq.entitty';
+import { Faq } from './faq/faq.entity';
 
 @Module({
   imports: [
@@ -19,8 +19,7 @@ import { Faq } from './faq/faq.entitty';
       synchronize: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'public'),
-      exclude: ['/api*']
+      rootPath: join(__dirname, 'public')
     }),
     ProdutoModule,
     UserModule,

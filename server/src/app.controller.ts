@@ -5,6 +5,6 @@ import path = require('path');
 export class AppController {
   @Get()
   root(@Res() response): void {
-    response.sendFile(path.resolve('public/index.html'));
+    response.sendFile(path.join(__dirname,'public/index.html'));
   }
 }

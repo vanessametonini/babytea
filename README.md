@@ -18,3 +18,11 @@
 1. Entre na pasta `server` e execute `npm install`
 
 1. Criar arquivo .env com a variavel `ACCESS_TOKEN_SUPERSECRET` e defina um secret para o token, e `ADMIN` e defina o email do admin
+
+## Passo a passo para deploy/release
+
+1. Copia o servidor 
+
+
+
+1. arrumar main.js para `await app.listen(process.env.PORT || 3000);`

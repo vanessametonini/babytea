@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Headers, ForbiddenException, Body, Delete, Param } from '@nestjs/common';
-import { Faq } from './faq.entitty';
+import { Faq } from './faq.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TokenService } from 'src/token.service';

@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FaqComponent implements OnInit {
 
-  content = "";
+  faqList = []
 
   constructor(private faqService: FaqService
     , private userService: UserService) { }
@@ -17,7 +17,7 @@ export class FaqComponent implements OnInit {
   ngOnInit(): void {
     this.faqService.getFaq()
       .subscribe(
-        faq => this.content = faq.content,
+        faq => this.faqList = faq,
         (erro: HttpErrorResponse) => {
           erro.status == 403
           this.userService.logout()

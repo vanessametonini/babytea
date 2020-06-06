@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, BeforeInsert, BeforeUpdate, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert, OneToMany } from "typeorm";
 import { Produto } from "src/produto/produto.entity";
 import { IsEmail, IsNotEmpty} from "class-validator";
 
@@ -23,7 +23,7 @@ export class User {
   nomeCompleto: string;
 
   @IsWhatsappAlreadyExist({ message: 'WhatsApp já cadastrado!' })
-  @Column({ nullable: true, unique: true })
+  @Column({ nullable: false, unique: true })
   whatsapp: string;
 
   @Expose()

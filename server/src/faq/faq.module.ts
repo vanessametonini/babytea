@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { FaqController } from './faq.controller';
-import { Faq } from './faq.entitty';
+import { Faq } from './faq.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TokenService } from 'src/token.service';
 import { UserService } from 'src/user/user.service';

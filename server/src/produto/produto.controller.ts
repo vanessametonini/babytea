@@ -19,8 +19,6 @@ export class ProdutoController {
   @Get()
   async findAll(@Headers('authorization') token, @Query() query ): Promise<Produto[]> {
 
-    console.log(query);
-
     return this.tokenService
                 .verify(token)
                 .then(decoded => {
