@@ -53,7 +53,7 @@ export class UserService {
     return await this.userRepository.findOneOrFail(userId);
   }
 
-  public async create(user): Promise<User> {
+  public async create(user: User): Promise<User> {
     user.produtos = [];
     const createdUser = await this.userRepository.save(user);
     createdUser.token = this.tokenService.generate({ email: user.email });

@@ -17,11 +17,12 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Expose({name: 'nome', toPlainOnly: true})
+  @Expose({name: 'nome'})
   @IsNotEmpty()
   @Column({ nullable: false })
   nomeCompleto: string;
 
+  @Expose({toClassOnly: true})
   @IsWhatsappAlreadyExist({ message: 'WhatsApp já cadastrado!' })
   @Column({ nullable: false, unique: true })
   whatsapp: string;
@@ -32,10 +33,12 @@ export class User {
   @Column({ nullable: false, unique: true })
   email: string;
 
+  @Expose({toClassOnly: true})
   @IsNotEmpty()
   @Column({ nullable: false })
   password: string;
 
+  @Expose({toClassOnly: true})
   @IsNotEmpty()
   @Column({ nullable: false })
   termos: boolean;
