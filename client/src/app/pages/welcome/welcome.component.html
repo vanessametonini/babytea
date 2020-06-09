@@ -55,8 +55,8 @@
 
     <div class="form-group">
       <input formControlName="whatsapp" type="text" class="form-control" [ngClass]="{'is-invalid': fieldValidation(formCadastro, 'whatsapp')}" placeholder="Nº celular ou WhatsApp:">
-      <span class="invalid-feedback" *ngIf="formCadastro.get('whatsapp').getError('invalid')">
-        O número do WhatsApp deve ser um número de telefone com ddd
+      <span class="invalid-feedback" *ngIf="formCadastro.get('whatsapp').getError('required')">
+        Preencha um número de telefone com DDD. Exemplo: 99 999 999 999
       </span>
     </div>
 

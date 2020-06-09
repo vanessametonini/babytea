@@ -70,7 +70,9 @@ export class UserService {
                 .pipe(
                   map((user: UserResponseObject) => this.setUserData(user)),
                   catchError(erro => {
-                    throw erro.error.message
+                    if (erro.error)
+                      throw erro.error
+                    return erro
                   })
                 );
   }

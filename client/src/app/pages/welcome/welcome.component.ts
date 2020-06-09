@@ -25,7 +25,7 @@ export class WelcomeComponent implements OnInit {
         Validators.minLength(6),
       ]),
       confirmar: new FormControl("", Validators.required),
-      whatsapp: new FormControl(""),
+      whatsapp: new FormControl("", Validators.required),
       termos: new FormControl(false, [Validators.required]),
     },
     {
@@ -69,7 +69,7 @@ export class WelcomeComponent implements OnInit {
     if (this.formLogin.valid) {
      this.userService.login(this.formLogin.value).subscribe(
        () => this.router.navigate([""]),
-        errorList => this.loginAlert = errorList,
+        errorList => this.loginAlert = errorList
       )
     }
 
