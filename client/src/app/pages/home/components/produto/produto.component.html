@@ -29,7 +29,8 @@
         </li>
       </ul>
     </dd>
-    <ng-template *ngIf="produto.descricao">
+
+    <ng-template [ngIf]="produto.descricao">
        <dt>Comentário:</dt>
        <dd>{{produto.descricao}}</dd>
     </ng-template>

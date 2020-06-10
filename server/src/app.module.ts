@@ -12,6 +12,7 @@ import { FaqModule } from './faq/faq.module';
 import { Faq } from './faq/faq.entity';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({

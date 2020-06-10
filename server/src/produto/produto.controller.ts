@@ -69,8 +69,11 @@ export class ProdutoController {
   }
 
   @Post()
-  async create(@Body() produtoInput): Promise<Produto> {
-    return await this.produtoRepository.save(produtoInput);
+  async create(@Body() produtoInput: Produto): Promise<Produto> {
+    return await this.produtoRepository
+      .save(produtoInput)
+      .then ( sucesso => sucesso )
+      .catch (erro => erro) 
   }
 
   @Put(':id')

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from 'src/user/user.entity';
 
 export enum productStatus {
@@ -42,18 +42,42 @@ export class Produto {
   @Column({ nullable: true, array: true, type: 'simple-json' })
   lojas: Loja[];
 
-  @Column({ nullable: false, enum: productStatus })
+  //PG
+  // @Column("json")
+  // public lojas!: { nome: string, url: string }[];
+
+  @Column({
+    type: 'simple-enum',
+    nullable: false,
+    enum: productStatus,
+    default: productStatus.livre,
+  })
   status: productStatus;
 
-  @ManyToOne(type => User, user => user.produtos, {nullable: true})
+  @ManyToOne(
+    type => User,
+    user => user.produtos,
+    { nullable: true },
+  )
   user: User;
-  
-  @Column({ nullable: false, enum: categoria })
+
+  @Column({
+    type: 'simple-enum',
+    nullable: false,
+    enum: categoria,
+    default: categoria.bebe,
+  })
   categoria: categoria;
 
   @Column({ nullable: true })
   descricao: string;
 
+  // //PG
+  // @Column({
+  //   type: 'timestamp',
+  //   nullable: false,
+  //   default: () => 'CURRENT_TIMESTAMP',
+  // })
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;
   

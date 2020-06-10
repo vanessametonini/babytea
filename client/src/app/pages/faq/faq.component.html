@@ -1,7 +1,6 @@
 <article class="mb-4">
   <h2>Informações</h2>
-  <p *ngFor="let faq of faqList">
-    {{faq.content}}
+  <p *ngFor="let faq of faqList" [innerHTML]="faq.content">
   </p>
 </article>
 <nav>

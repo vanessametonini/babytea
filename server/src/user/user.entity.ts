@@ -7,22 +7,21 @@ import * as bcrypt from 'bcrypt';
 import { IsWhatsappAlreadyExist } from "./validators/is-whatsapp-unique";
 import { Exclude, Expose } from "class-transformer";
 
-@Exclude({toPlainOnly: true})
+@Exclude({ toPlainOnly: true })
 @Entity({
   name: 'usuarios',
 })
 export class User {
-
   @Expose()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Expose({name: 'nome'})
+  @Expose({ name: 'nome' })
   @IsNotEmpty()
   @Column({ nullable: false })
   nomeCompleto: string;
 
-  @Expose({toClassOnly: true})
+  @Expose({ toClassOnly: true })
   @IsWhatsappAlreadyExist({ message: 'WhatsApp já cadastrado!' })
   @Column({ nullable: false, unique: true })
   whatsapp: string;
@@ -33,21 +32,30 @@ export class User {
   @Column({ nullable: false, unique: true })
   email: string;
 
-  @Expose({toClassOnly: true})
+  @Expose({ toClassOnly: true })
   @IsNotEmpty()
   @Column({ nullable: false })
   password: string;
 
-  @Expose({toClassOnly: true})
+  @Expose({ toClassOnly: true })
   @IsNotEmpty()
   @Column({ nullable: false })
   termos: boolean;
 
+  //PG
+  // @Column({
+  //   type: 'timestamp',
+  //   nullable: false,
+  //   default: () => 'CURRENT_TIMESTAMP',
+  // })
   @CreateDateColumn({ nullable: false })
   cadastradoEm: Date;
 
   @Expose()
-  @OneToMany(type => Produto, produto => produto.user)
+  @OneToMany(
+    type => Produto,
+    produto => produto.user,
+  )
   produtos: Produto[];
 
   @Expose()
