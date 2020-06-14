@@ -12,6 +12,8 @@ import { MyListComponent } from './components/my-list/my-list.component';
 
 import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastComponent } from './components/toast/toast.component';
+import { ProdutoComponent } from './components/produto/produto.component';
+import { SharedComponentsModule } from './components/shared-components.module';
 
 registerLocaleData(pt);
 
@@ -25,7 +27,8 @@ registerLocaleData(pt);
     BrowserModule,
     AppRoutingModule,
     HttpClientModule, 
-    NgbToastModule
+    NgbToastModule,
+    SharedComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@ import { Product } from 'src/app/models/product';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AddToMyListService } from 'src/app/services/add-to-my-list.service';
 import { productStatus } from 'src/app/models/product-status.enum';
-import { ProdutoComponent } from './components/produto/produto.component';
+import { ProdutoComponent } from 'src/app/components/produto/produto.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { categoria } from 'src/app/models/categoria.enum';

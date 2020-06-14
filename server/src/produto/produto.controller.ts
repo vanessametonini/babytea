@@ -27,16 +27,18 @@ export class ProdutoController {
 
                     case categoria.bebe:
                       return this.produtoRepository
-                        .find({ 
-                          where: { categoria: categoria.bebe }, 
-                          relations: ["user"]
-                        })
+                      .find({ 
+                        where: { categoria: categoria.bebe }, 
+                        order: { status: "DESC" },
+                        relations: ["user"]
+                      })
                       break;
 
                     case categoria.papai:
                       return this.produtoRepository
                         .find({
                           where: { categoria: categoria.papai },
+                          order: { status: "DESC" },
                           relations: ["user"]
                         })
                       break;
@@ -45,6 +47,7 @@ export class ProdutoController {
                       return this.produtoRepository
                         .find({
                           where: { categoria: categoria.mamae },
+                          order: { status: "DESC" },
                           relations: ["user"]
                         })
                       break;
@@ -53,11 +56,15 @@ export class ProdutoController {
                       return this.produtoRepository
                         .find({
                           where: { categoria: categoria.familia },
+                          order: { status: "DESC" },
                           relations: ["user"]
                         })
 
                     default:
-                      return this.produtoRepository.find({ relations: ["user"] })
+                      return this.produtoRepository.find({ 
+                        order: { status: "DESC" },
+                        relations: ["user"] 
+                      })
                       break;
                   }
 

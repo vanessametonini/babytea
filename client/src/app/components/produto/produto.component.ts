@@ -11,6 +11,7 @@ export class ProdutoComponent {
 
   @Input() produto: Product;
   @Output() reservaProduto = new EventEmitter();
+  @Input() myList = false;
   statusProduto = productStatus;
   mensagemErro = "";
 

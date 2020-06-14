@@ -2,18 +2,17 @@
 
   <button class="abrir" type="button" (click)="toggleLista()">
     Minha lista de presentes 
-    <span *ngIf="products.length == 1">
-      ({{products.length}} item)
+    <span *ngIf="products.length == 1" class="itens">
+      {{products.length}} item
     </span>
-    <span *ngIf="products.length > 1">
-      ({{products.length}} itens)
+    <span *ngIf="products.length > 1" class="itens">
+      {{products.length}} itens
     </span>
   </button>
 
   <div class="lista" [ngStyle]="{'display': isProductsVisible}">
 
-    <button class="btn fechar" type="button" (click)="toggleLista()">
-      Fechar
+    <button class="btn btn-bbt fechar" type="button" (click)="toggleLista(); toggleVerProduto()" title="Fechar" aria-label="Fechar">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
         <g fill="none" stroke="#6c757d" stroke-width="1">
           <path d="M2 14L14 2M2 2l12 12"/>
@@ -24,7 +23,7 @@
     <h3>Minha lista de presentes</h3>
     <a class="btn mb-4 btn-outline-info" (click)="toggleLista()" [routerLink]="['faq']">Informações de entrega</a>
 
-    <div *ngIf="products.length == 0">
+    <article *ngIf="products.length == 0">
       <p>
         Olá {{userName}}! Você ainda não reservou um presente! 
       </p>
@@ -34,23 +33,33 @@
       <p>
         Clique em <strong>presentear</strong> caso queira reservar determinado item!
       </p>
-    </div>
+    </article>
 
-    <div *ngIf="products.length > 0">
+    <article *ngIf="products.length > 0">
       <p>Olá {{userName}}! Veja os itens que você já reservou para presentear:</p>
-      <ol>
-        <li *ngFor="let produto of products">
-          <a [routerLink]="['produto', produto.id]">{{produto.titulo}}</a> 
-          <!-- <button class="remover" type="button" title="remover" (click)="removerLista(produto)">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              <g fill="none" stroke="#6c757d" stroke-width="2">
-                <path d="M2 14L14 2M2 2l12 12"/>
-              </g>
-            </svg>
-          </button> -->
-        </li>
-      </ol>
-    </div>
+
+      <div class="list-and-detail">
+        <ol [ngClass]="{'slideList': isOneProductVisible}">
+          <li *ngFor="let produto of products">
+            <a (click)="verUmProduto(produto)">{{produto.titulo}}</a> 
+            <!-- <button class="remover" type="button" title="remover" (click)="removerLista(produto)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <g fill="none" stroke="#6c757d" stroke-width="2">
+                  <path d="M2 14L14 2M2 2l12 12"/>
+                </g>
+              </svg>
+            </button> -->
+          </li>
+        </ol>
+  
+        <section [ngClass]="{'slideList': isOneProductVisible}">
+          <button class="btn btn-bbt" type="button" (click)="toggleVerProduto()"><</button>
+          <bt-produto [produto]="produto" [myList]="true">
+          </bt-produto>
+        </section>
+
+      </div>
+    </article>
 
   </div>
 </section>

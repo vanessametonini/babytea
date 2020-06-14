@@ -13,6 +13,8 @@ export class MyListComponent implements OnInit {
   products: Product[] = [];
   isProductsVisible = 'none';
   userName = "";
+  produto: Product;
+  isOneProductVisible = false;
 
   constructor(private myListService: AddToMyListService) {}
 
@@ -20,6 +22,7 @@ export class MyListComponent implements OnInit {
     const user: UserResponseObject = JSON.parse(localStorage.getItem("bbt-user"))
     this.userName = user.nome;
     this.products = user.produtos;
+    this.produto = this.products[0];
 
     this.myListService.emissorDeProdutos.subscribe( listaProdutos => this.products = listaProdutos)
 
@@ -34,8 +37,17 @@ export class MyListComponent implements OnInit {
     }
   }
 
+  toggleVerProduto() {
+    this.isOneProductVisible = !this.isOneProductVisible;
+  }
+
   removerLista(produto) {
     this.myListService.removerProduto(produto);
+  }
+
+  verUmProduto(produto) {
+    this.toggleVerProduto();
+    this.produto = produto;
   }
 
 }

@@ -99,3 +99,17 @@ footer {
     border-top: 3px solid darkred;
   }
 }
+
+.btn-bbt {
+  border: 1px solid $base-lila;
+  color: $base-lila;
+  display: block;
+
+  &:active,
+  &:hover {
+    border-color: $base-lila;
+    background-color: $base-lila;
+    color: white; 
+  }
+
+}

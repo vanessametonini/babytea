@@ -1,9 +1,38 @@
 .produto {
 
   @media (min-width: 540px) {
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
-    padding: 1em 2em;
+    &:not(.myList){
+      border-radius: 10px;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+      padding: 1em 2em;
+    }
+  }
+
+  &.myList {
+    
+    font-size: .9em;
+
+    .reserva,
+    figcaption { display: none; }
+
+    figure img {
+      height: 120px;
+      width: 120px;
+    }
+
+    h3 {
+      color: var(--gray);
+      font-size: initial;
+    }
+
+    dt:first-of-type,
+    dd:first-of-type {
+      display: inline-block;
+    }
+    dd:first-of-type {
+      padding-left: 5px;
+    }
+
   }
   
 }
