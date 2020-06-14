@@ -34,6 +34,7 @@ export class MyListComponent implements OnInit {
     } 
     else {
       this.isProductsVisible = 'none'
+      this.isOneProductVisible = false;
     }
   }
 
