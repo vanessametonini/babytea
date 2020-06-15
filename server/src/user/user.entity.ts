@@ -21,7 +21,7 @@ export class User {
   @Column({ nullable: false })
   nomeCompleto: string;
 
-  @Expose({ toClassOnly: true })
+  @Expose()
   @IsWhatsappAlreadyExist({ message: 'WhatsApp já cadastrado!' })
   @Column({ nullable: false, unique: true })
   whatsapp: string;

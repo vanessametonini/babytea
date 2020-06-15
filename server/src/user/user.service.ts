@@ -27,7 +27,7 @@ export class UserService {
           .then(
             user => {
               if (user.email === process.env.ADMIN) {
-                return this.userRepository.find();
+                return this.userRepository.find({relations: ["produtos"]});
               }
             }
           )
