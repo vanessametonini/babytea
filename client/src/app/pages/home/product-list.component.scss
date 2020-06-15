@@ -28,7 +28,7 @@
   }
 
   &:after {
-    background-color: var(--purple);
+    background-color: var(--bbt-purple);
     bottom: 0;
     content: '';
     display: block;
@@ -42,7 +42,7 @@
   &:active,
   &.active {
     border: 0;
-    color: var(--purple);
+    color: var(--bbt-purple);
 
      &:after {
       width: 100%;
@@ -52,7 +52,7 @@
   &:hover {
     background-color: rgba(207, 180, 237, 0.4);
     border: 0;
-    color: var(--purple);
+    color: var(--bbt-purple);
 
     &:after {
       width: 100%;
@@ -60,6 +60,7 @@
   }
 
 }
+
 
 .produtos {
 

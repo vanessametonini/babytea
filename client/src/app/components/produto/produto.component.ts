@@ -12,6 +12,7 @@ export class ProdutoComponent {
   @Input() produto: Product;
   @Output() reservaProduto = new EventEmitter();
   @Input() myList = false;
+  @Input() reservando = false;
   statusProduto = productStatus;
   mensagemErro = "";
 
@@ -20,6 +21,7 @@ export class ProdutoComponent {
   }
 
   togglePresentear() {
+    this.reservando = true;
     this.reservaProduto.emit();
   }
 

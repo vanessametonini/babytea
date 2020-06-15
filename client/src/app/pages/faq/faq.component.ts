@@ -10,14 +10,19 @@ import { UserService } from 'src/app/services/user.service';
 export class FaqComponent implements OnInit {
 
   faqList = []
+  loading = true;
 
   constructor(private faqService: FaqService
     , private userService: UserService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.faqService.getFaq()
-      .subscribe(
-        faq => this.faqList = faq,
+    .subscribe(
+      faq => {
+          this.loading = false;
+          this.faqList = faq
+        },
         (erro: HttpErrorResponse) => {
           erro.status == 403
           this.userService.logout()

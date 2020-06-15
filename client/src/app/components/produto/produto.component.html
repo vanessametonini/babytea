@@ -55,6 +55,7 @@
       }"  
       (click)="togglePresentear()"
     >
+    <span *ngIf="reservando" class="mini-loader"></span>
       {{
         produto.status == statusProduto.reservado
         ? "Reservado para: "+produto.user?.nome

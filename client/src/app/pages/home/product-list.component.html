@@ -24,6 +24,7 @@
           #thisProdutoComponent
           [produto]="produto"
           (reservaProduto)="reservarProduto(produto, thisProdutoComponent)"
+          [reservando]="reservandoProdutos"
             ></bt-produto>
         </li>
       </ol>
@@ -58,4 +59,7 @@
     </ng-template>
   </li>
 </ul>
+<div *ngIf="loadingProducts" class="loading">
+  carregando presentes
+</div>
 <div [ngbNavOutlet]="nav"></div>

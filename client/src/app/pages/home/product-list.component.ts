@@ -17,6 +17,8 @@ export class ProductListComponent implements OnInit {
   
   listaProdutos: Product[] = [];
   statusProduto = productStatus;
+  loadingProducts = true;
+  reservandoProdutos = false;
   active = 1;
 
   constructor(
@@ -30,10 +32,16 @@ export class ProductListComponent implements OnInit {
   }
 
   getListaDeProdutos(cat) {
+
+    this.loadingProducts = true;
+
     this.produtoService
       .listar(cat)
       .subscribe(
-        lista => this.listaProdutos = lista,
+        lista => {
+          this.loadingProducts = false;
+          this.listaProdutos = lista
+        },
         (erro: HttpErrorResponse) => {
           erro.status == 403 
             this.userService.logout()
@@ -42,8 +50,11 @@ export class ProductListComponent implements OnInit {
   }
 
   reservarProduto(produto: Product, thisProdutoComponent: ProdutoComponent) {
+    this.reservandoProdutos = true;
+
     this.produtoService.atualizarReserva(produto).subscribe(
       produto => {
+        this.reservandoProdutos = false;
         this.getListaDeProdutos(produto.categoria);
         this.myListService.atualizaProduto(produto);
       },

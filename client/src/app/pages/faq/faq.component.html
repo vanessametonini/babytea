@@ -1,5 +1,8 @@
 <article class="mb-4">
   <h2>Informações</h2>
+  <div *ngIf="loading" class="loading">
+    carregando informações
+  </div>
   <p *ngFor="let faq of faqList" [innerHTML]="faq.content">
   </p>
 </article>
