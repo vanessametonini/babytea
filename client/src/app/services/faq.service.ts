@@ -10,7 +10,7 @@ import { TokenService } from './token.service';
 })
 export class FaqService {
 
-  private url = `${environment.api}/faq`;
+  private url = `${environment.api}/api/faq`;
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {
