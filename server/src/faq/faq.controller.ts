@@ -6,7 +6,7 @@ import { TokenService } from 'src/token.service';
 import { UserService } from 'src/user/user.service';
 require('dotenv').config();
 
-@Controller('faq')
+@Controller('api/faq')
 export class FaqController {
 
   constructor(
