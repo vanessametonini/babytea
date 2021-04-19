@@ -42,13 +42,13 @@
         <ol [ngClass]="{'slideList': isOneProductVisible}">
           <li *ngFor="let produto of products">
             <a (click)="verUmProduto(produto)">{{produto.titulo}}</a> 
-            <!-- <button class="remover" type="button" title="remover" (click)="removerLista(produto)">
+            <button class="remover" type="button" title="remover" (click)="removerLista(produto)">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                 <g fill="none" stroke="#6c757d" stroke-width="2">
                   <path d="M2 14L14 2M2 2l12 12"/>
                 </g>
               </svg>
-            </button> -->
+            </button>
           </li>
         </ol>
   
